@@ -7,7 +7,10 @@ const Schema = mongoose.Schema;
 //if this dosen't work add a array declaration as default value
 var book = new Schema({
     bookName: String,
-    averageReviewScore: Int16Array,
+    averageReviewScore: {
+        type : Int16Array,
+        default : 0
+    },
     author: [Author],
     genre: [Genre],
 });

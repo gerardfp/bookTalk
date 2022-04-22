@@ -1,0 +1,22 @@
+html
+  head
+    title= "book form"
+    link(rel='stylesheet' href='/css/bootstrap.min.css')
+  body
+    form(action="/book/add/save", method="post")
+        label(for="bookName") Name:
+        input(type="text", name="bookName")
+        br
+        br
+        label(for="bookName") AuthorName:
+        input(type="text", name="authorName")
+        button(type="button" onclick='serachAuthors()') search
+        div(id="listOfAuthors")
+        //al clicar el button et retorna llista dels autors que el nom s'assembli
+script.
+  async function serachAuthors () {
+    let outputDiv = document.getElementById("listOfAuthors");
+    let listOfAuthors = await fetch('/author/search');
+    console.log(listOfAuthors);
+
+  }
