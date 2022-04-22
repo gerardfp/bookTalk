@@ -18,4 +18,7 @@ router.get('/',function(req,res){
   res.sendFile(path.resolve('views/test.html'));
 });
 
+router.get('/test',function(req,res){
+  res.render('home.pug');
+});
 module.exports = router;
