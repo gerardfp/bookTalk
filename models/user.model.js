@@ -13,7 +13,7 @@ var user = new Schema({
     biography: {
         type : Text,
         default : ' '
-    },
+    },//can be edit when the user is already created
     email: String,
     type: {
         type: String,
