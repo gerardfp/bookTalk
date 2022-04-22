@@ -14,7 +14,8 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mongoose": "^6.2.8",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "pug-bootstrap": "0.0.16"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

@@ -19,6 +19,11 @@ router.get('/',function(req,res){
 });
 
 router.get('/test',function(req,res){
-  res.render('home.pug');
+  res.render('register.pug');
 });
+
+router.get('/user/signin',function(req,res){
+  res.render('login.pug');
+});
+
 module.exports = router;

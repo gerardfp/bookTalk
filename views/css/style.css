@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;0,800;1,400&display=swap');
 
+:root {
+    --header-color: #023436;
+    --background-color: #ddd8c4;
+    --book-color: #69a297;
+    --review-color: #a3c9a8;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -8,12 +15,16 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+    background-color: var(--background-color);
+    width: 100%;
+    height: 100vh;
+    color: var(--header-color);
 }
 
 .header {
-    background: #000000;
+    background: var(--header-color);
     height: 70px;
-    color: #fff;
+    color: var(--background-color);
     margin: 0;
 }
 
@@ -31,14 +42,81 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-left: 10%;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
-.div {
-    border: 1px solid white;
+.input__icons svg {
+    position: absolute;
+}
+
+.input__icons {
+    width: 40%;
+    color: var(--header-color);
+}
+
+.icon {
+    margin-right: 10px;
+    height: 40px;
+}
+
+.input__field {
+    width: 100%;
+    height: 40px;
+    text-align: start;
+    border-radius: 10px;
+}
+
+.nav__title {
+    font-size: 25px;
+}
+
+.header__content {
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.header__icon {
+    width: 35px;
+    height: 35px;
+    margin-left: 7px;
+}
+
+.header__link {
+    margin-left: 7px;
 }
 
 .nav__link {
-    color: #fafafa;
+    color: var(--background-color);
     text-decoration: none;
+}
+
+.nav__link:hover {
+    color: var(--review-color);
+    text-decoration: none;
+}
+
+.block {
+    width: 60%;
+    height: 60%;
+    margin-top: 190px;
+    margin-left: 20%;
+    justify-content: start;
+}
+
+.input__login {
+    width: 100%;
+    height: 40px;
+    text-align: start;
+    border-radius: 6px;
+}
+
+.block__button {
+    width: 40%;
+    height: 40px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: var(--book-color);
+    color: var(--header-color);
 }
