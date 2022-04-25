@@ -1,6 +1,6 @@
 extends header 
 block content
-    div.block
+    form(action="/user/signin/save" method="post").block
         h1 Login 
         br
         input(type="text" placeholder="Nombre Usuario").input__login
@@ -9,4 +9,4 @@ block content
         input(type="password" placeholder="Contraseña").input__login
         br
         br
-        button.block__button Login
+        button(type="submit").block__button Login

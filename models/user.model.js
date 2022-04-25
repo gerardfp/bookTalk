@@ -11,7 +11,7 @@ var user = new Schema({
         default : ' '
     }, //file path
     biography: {
-        type : Text,
+        type : String,
         default : ' '
     },
     email: String,

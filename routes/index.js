@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const UserController = require('../controllers/user.controller.js');
 
 
 
@@ -19,11 +20,19 @@ router.get('/',function(req,res){
 });
 
 router.get('/test',function(req,res){
+  res.render('userEdit.pug');
+});
+
+router.get('/user/signup',function(req,res){
   res.render('register.pug');
 });
+
+router.post('/user/signup/save', UserController.register);
 
 router.get('/user/signin',function(req,res){
   res.render('login.pug');
 });
+
+router.post('/user/signin/save', UserController.login);
 
 module.exports = router;

@@ -1,24 +1,25 @@
 extends header 
 block content
-    div.block
+    form(action="/user/signup/save" method="post").block
         h1 Register 
         br
-        input(type="text" placeholder="Nombre Usuario").input__login
+        div()#errores
+        input(type="text" name="username" placeholder="Nombre Usuario").input__login
         br
         br
-        input(type="text" placeholder="Nombre completo").input__login
+        input(type="text" name="completeName" placeholder="Nombre completo").input__login
         br
         br
-        input(type="date" placeholder="Fecha de nacimiento").input__login
+        input(type="date" name="birthDate" placeholder="Fecha de nacimiento").input__login
         br
         br
-        input(type="mail" placeholder="email").input__login
+        input(type="mail" name="email" placeholder="email").input__login
         br
         br
-        input(type="password" placeholder="Contraseña").input__login
+        input(type="password" name="password" placeholder="Contraseña").input__login
         br
         br
-        input(type="password" placeholder="Repite la contraseña").input__login
+        input(type="password" name="password2" placeholder="Repite la contraseña").input__login
         br
         br
-        button.block__button Login
+        button(type="submit").block__button Register
