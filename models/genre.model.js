@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 var genre = new Schema({
     name: String,
-    description: Text
+    description: String
 });
 
 const Genre = mongoose.model('Genre', genre);
-module.exports = Genre;
+module.exports = {model:Genre,schema:genre};

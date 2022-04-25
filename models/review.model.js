@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 var review = new Schema({
     reviewTitle: String,
-    reviewScore: Int16Array,
+    reviewScore: Number,
     reviewText: Text,
     bookImage: String, //route to file
-    numberOfLikes: Int16Array,
+    numberOfLikes: Number,
     bookId: String
 });
 

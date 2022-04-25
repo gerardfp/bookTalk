@@ -7,7 +7,9 @@ exports.save = (req, res, next) => {
     res.redirect("/");
 }
 
-exports.get = async (req, res, next) => {
-    let authors = await Author.find({ name: req.body.authorName }).exec();
+exports.get = (req, res, next) => {
+    Author.model.find(function(err, authors) {
+        req.authors = authors;
+        next();
+    });
 }
-

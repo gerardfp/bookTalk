@@ -2,21 +2,47 @@ html
   head
     title= "book form"
     link(rel='stylesheet' href='/css/bootstrap.min.css')
-  body
+  body(onLoad="searchAuthors()")
     form(action="/book/add/save", method="post")
-        label(for="bookName") Name:
-        input(type="text", name="bookName")
-        br
-        br
-        label(for="bookName") AuthorName:
-        input(type="text", name="authorName")
-        button(type="button" onclick='serachAuthors()') search
-        div(id="listOfAuthors")
-        //al clicar el button et retorna llista dels autors que el nom s'assembli
+      label(for="bookName") Name:
+      input(type="text", name="bookName")
+      br
+      br
+      label(for="bookName") AuthorName:
+      input(list="encodings" value="" class="col-sm-6 custom-select custom-select-sm" name="author")
+      datalist(id="encodings")
+      br
+      br
+      label(for="genreName") Genre:
+      input(list="genres" value="" class="col-sm-6 custom-select custom-select-sm" name="genre")
+      datalist(id="genres")
+      br
+      br
+      button(type="submit") Enviar
 script.
-  async function serachAuthors () {
-    let outputDiv = document.getElementById("listOfAuthors");
-    let listOfAuthors = await fetch('/author/search');
-    console.log(listOfAuthors);
+  function searchGenres() {
+    let datalist = document.getElementById("genres");
+    var listOfGenresStr = `#{genreList}`;
+    let listOfGenres = listOfGenresStr.replaceAll("&quot;","\"");
+    let list = JSON.parse(listOfGenres);
+    list.forEach(function(entry) {
+      let opt = document.createElement("option");
+      opt.value = entry.name;
+      opt.innerHTML = entry.name;
+      datalist.appendChild(opt);
+    });
+  }
 
+  function searchAuthors() {
+    let datalist = document.getElementById("encodings");
+    var listOfAuthorsStr = `#{authorList}`;
+    let listOfAuthors = listOfAuthorsStr.replaceAll("&quot;","\"");
+    let list = JSON.parse(listOfAuthors);
+    list.forEach(function(entry) {
+      let opt = document.createElement("option");
+      opt.value = entry.completename;
+      opt.innerHTML = entry.completename;
+      datalist.appendChild(opt);
+    });
+    searchGenres();
   }

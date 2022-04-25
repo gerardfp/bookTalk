@@ -4,15 +4,14 @@ const Genre = require('./genre.model');
 
 const Schema = mongoose.Schema;
 
-//if this dosen't work add a array declaration as default value
 var book = new Schema({
     bookName: String,
     averageReviewScore: {
-        type : Int16Array,
+        type : Number,
         default : 0
     },
-    author: [Author],
-    genre: [Genre],
+    author: [Author.schema],
+    genre: [Genre.schema]
 });
 
 const Book = mongoose.model('Book', book);

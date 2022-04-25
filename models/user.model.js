@@ -11,7 +11,7 @@ var user = new Schema({
         default : ' '
     }, //file path
     biography: {
-        type : Text,
+        type : String,
         default : ' '
     },//can be edit when the user is already created
     email: String,

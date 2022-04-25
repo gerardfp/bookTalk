@@ -1,0 +1,13 @@
+html
+  head
+    title= "genre form"
+  body
+    form(action="/genre/add/save", method="post")
+        label(for="authorName") Nombre del genero:
+        input(type="text", name="genreName")
+        br
+        br
+        label(for="wikipedialink") Description:
+        textarea(name="description", rows="4", cols="50")
+        br
+        input(type="submit", value="Enviar")
