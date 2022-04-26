@@ -1,15 +1,23 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <link rel='stylesheet' href='/css/bootstrap.min.css'/>
-    </head>
-    <body>
-        <h1>Test view</h1>
-        <input list="encodings" value="" class="col-sm-6 custom-select custom-select-sm">
-        <datalist id="encodings">
-            <option value="ISO-8859-1">ISO-8859-1</option>
-            <option value="cp1252">ANSI</option>
-            <option value="utf8">UTF-8</option>
-        </datalist>
-        
-    </body>
-</html>
+<head>
+	<link href="css/multiselect.css" rel="stylesheet"/>
+	<script src="multiselect.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/index.js"></script>
+</head>
+<body>
+	<select multiple="multiple" id="myMulti">
+		<option>CSS</option>
+		<option>SCRIPT</option>
+		<option>COM</option>
+		<option>jQuery</option>
+		<option>HTML5</option>
+	  </select>
+
+<script>
+	var myDrop = new drop({
+		selector:  '#myMulti'
+	});
+</script>
+</body>

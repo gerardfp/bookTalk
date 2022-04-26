@@ -2,23 +2,25 @@ html
   head
     title= "book form"
     link(rel='stylesheet' href='/css/bootstrap.min.css')
-  body(onLoad="searchAuthors()")
+
+  body(onload="searchAuthors()")
     form(action="/book/add/save", method="post")
       label(for="bookName") Name:
       input(type="text", name="bookName")
       br
       br
       label(for="bookName") AuthorName:
-      input(list="encodings" value="" class="col-sm-6 custom-select custom-select-sm" name="author")
-      datalist(id="encodings")
+      input(type="text")
+      button(type="button" onclick="searchAuthors()") Buscar Autor
       br
       br
       label(for="genreName") Genre:
-      input(list="genres" value="" class="col-sm-6 custom-select custom-select-sm" name="genre")
+      input(list="genres" type="text" value="" class="col-sm-6 custom-select custom-select-sm" name="genre" multiple="multiple")
       datalist(id="genres")
       br
       br
       button(type="submit") Enviar
+
 script.
   function searchGenres() {
     let datalist = document.getElementById("genres");
