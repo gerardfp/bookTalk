@@ -5,8 +5,9 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const UserController = require('../controllers/user.controller.js');
+const session = require('express-session');
 
-
+connectedUsers = Array();
 
 //Middleware para mostrar datos del request
 router.use (function (req,res,next) {
@@ -14,23 +15,32 @@ router.use (function (req,res,next) {
   next();
 });
 
+router.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
 //Analiza la ruta y el protocolo y reacciona en consecuencia
 router.get('/',function(req,res){
-  res.sendFile(path.resolve('views/test.html'));
+  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
-router.get('/test',function(req,res){
-  res.render('userEdit.pug');
+router.get('/user/edit',function(req,res){
+  res.render('userEdit.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
+
+router.post('/user/edit/params', UserController.edit);
 
 router.get('/user/signup',function(req,res){
-  res.render('register.pug');
+  res.render('register.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
 router.post('/user/signup/save', UserController.register);
 
 router.get('/user/signin',function(req,res){
-  res.render('login.pug');
+  res.render('login.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
 router.post('/user/signin/save', UserController.login);

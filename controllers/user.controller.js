@@ -9,13 +9,13 @@ var register = (req, res, next) => {
         console.log("No ha introducido el nombre de usuario");
     } else {
         //mirar si està a la bbdd
-        User.find({username: req.body.username}, function(err, user) {
+        User.findOne({username: req.body.username}, function(err, user) {
             if (user != undefined) {
-                correcte++;
-                console.log("Username correcte");
-            } else {
                 errors += "El Nombre de usuario ya existe. \n";
                 console.log("Username incorrecte");
+            } else {
+                correcte++;
+                console.log("Username correcte");
             }
         });
     }
@@ -31,6 +31,7 @@ var register = (req, res, next) => {
         errors += "La fecha de nacimiento está vacia";
         console.log("No ha introducido la fecha de nacimiento");
     } else {
+        console.log(req.body.birthDate);
         //comprobar que és una data més antiga a l'actual
         var birthDate = req.body.birthDate.split("-");
         var year = birthDate[0];
@@ -89,6 +90,7 @@ var register = (req, res, next) => {
     
     if (correcte == 5) {
         console.log("S'ha registrat");
+        console.log(req.body.birthDate);
         var user = new User({username: req.body.username, completeName: req.body.completeName, birthDate: req.body.birthDate, password: req.body.password, email: req.body.email});
         user.save();
         res.redirect("/user/signin");
@@ -101,8 +103,16 @@ var register = (req, res, next) => {
 };
 
 var login = (req, res, next) => {
-    User.findOne({username: req.body.username, completeName: req.body.completeName, birthDate: req.body.birthDate, password: req.body.password, email: req.body.email}, function(err, user) {
+    User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
         if (user != undefined) {
+            var birthDate = user.birthDate;
+            let formatted_date = birthDate.getFullYear() + '-' + birthDate.getDate() + '-' + (birthDate.getMonth() + 1);
+            
+            var sess = req.session;
+            sess.username = user.username;
+            sess.completeName = user.completeName;
+            sess.birthDate = formatted_date;
+            sess.email = user.email;
             res.redirect('/');
         } else {
             res.redirect('/user/signup');
@@ -110,4 +120,72 @@ var login = (req, res, next) => {
     });
 };
 
-module.exports = {register, login};
+var edit = (req, res, next) => {
+    var param = req.body.tipoDatos;
+    if (param == "username") {
+        if (req.body.username != "") {
+            var sess = req.session;
+            User.findOneAndUpdate({username: sess.username}, {username: req.body.username}, function(err, user) {
+                user.save();
+                sess.username = req.body.username;
+                res.redirect('/user/edit');
+            });
+            
+        }
+    } else if (param == "completeName") {
+        if (req.body.completeName != "") {
+            var sess = req.session;
+            User.findOneAndUpdate({completeName: sess.completeName}, {completeName: req.body.completeName}, function(err, user) {
+                user.save();
+                sess.completeName = req.body.completeName;
+                res.redirect('/user/edit');
+            });
+            
+        }
+    } else if (param == "birthDate") {
+        if (req.body.birthDate != "") {
+            var sess = req.session;
+            var d1 = sess.birthDate.split('-');
+            d1[2]--;
+            d1[1]++;
+            var dataSesion = new Date(d1[0], d1[2], d1[1]);
+            
+            var d2 = req.body.birthDate.split('-');
+            d2[2]++;
+            d2[1]--;
+            var data = new Date(d2[0], d2[1], d2[2]);
+            console.log(data);
+            
+            User.findOneAndUpdate({username: sess.username}, {birthDate: data}, function(err, user) {
+                console.log(user);
+                var year = d2[0];
+                var month = d2[1];
+                var day = d2[2];
+                var dataAct = new Date;
+                var OldDate = new Date(year, month, day);
+                if (dataAct.getTime() > OldDate.getTime()) {
+                    user.save();
+                    sess.birthDate = year + "-" + day + "-" + month;
+                    res.redirect('/user/edit');
+                }
+                //sess.birthDate = data;
+                //res.redirect('/user/edit');
+            });
+        }
+    } else if (param == "email") {
+        if (req.body.email != "") {
+            var sess = req.session;
+            User.findOneAndUpdate({email: sess.email}, {email: req.body.email}, function(err, user) {
+                user.save();
+                sess.email = req.body.email;
+                res.redirect('/user/edit');
+            });
+            
+        }
+    }
+    //FALTA FER FOTO I BIOGRAFIA
+    
+    res.redirect('/user/edit');
+};
+
+module.exports = {register, login, edit};
