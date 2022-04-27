@@ -4,6 +4,8 @@ const Genre = require('../models/genre.model');
 
 
 exports.save = async (req, res, next) => { 
+
+    //substituir aquesta part per foreach, per les multiples consultes
     //get author name and search it to grab the model
     let getAuthor = req.body.author;
     let author = await Author.model.findOne({completeName: getAuthor});

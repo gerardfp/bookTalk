@@ -1,7 +1,7 @@
 var Author = require('../models/author.model.js');
 
 exports.save = (req, res, next) => { 
-    let author = new Author({completeName: req.body.authorName, wikipediaLink: req.body.wikipedialink});
+    let author = new Author.model({completeName: req.body.authorName, wikipediaLink: req.body.wikipedialink});
     console.log(author);
     author.save();
     res.redirect("/");

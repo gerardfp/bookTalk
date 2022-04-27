@@ -2,28 +2,33 @@ html
   head
     title= "book form"
     link(rel='stylesheet' href='/css/bootstrap.min.css')
+    //jQuery library
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
+    //JS & CSS library of MultiSelect plugin
+    script(src="https://phpcoder.tech/multiselect/js/jquery.multiselect.js")
+    link(rel="stylesheet" href="https://phpcoder.tech/multiselect/css/jquery.multiselect.css")
 
-  body(onload="searchAuthors()")
+  body()
     form(action="/book/add/save", method="post")
       label(for="bookName") Name:
       input(type="text", name="bookName")
       br
       br
       label(for="bookName") AuthorName:
-      input(type="text")
-      button(type="button" onclick="searchAuthors()") Buscar Autor
+      select(name="authors[]" multiple id="languageSelect")
       br
       br
       label(for="genreName") Genre:
-      input(list="genres" type="text" value="" class="col-sm-6 custom-select custom-select-sm" name="genre" multiple="multiple")
-      datalist(id="genres")
+      select(name="genres[]" multiple id="genreSelect")
       br
       br
       button(type="submit") Enviar
 
 script.
+
   function searchGenres() {
-    let datalist = document.getElementById("genres");
+    let datalist = document.getElementById("genreSelect");
     var listOfGenresStr = `#{genreList}`;
     let listOfGenres = listOfGenresStr.replaceAll("&quot;","\"");
     let list = JSON.parse(listOfGenres);
@@ -33,10 +38,15 @@ script.
       opt.innerHTML = entry.name;
       datalist.appendChild(opt);
     });
+    jQuery('#genreSelect').multiselect({
+      columns: 1,
+      placeholder: 'Select Genre',
+      search: true
+    });
   }
-
-  function searchAuthors() {
-    let datalist = document.getElementById("encodings");
+  
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    let datalist = document.getElementById("languageSelect");
     var listOfAuthorsStr = `#{authorList}`;
     let listOfAuthors = listOfAuthorsStr.replaceAll("&quot;","\"");
     let list = JSON.parse(listOfAuthors);
@@ -46,5 +56,12 @@ script.
       opt.innerHTML = entry.completename;
       datalist.appendChild(opt);
     });
+    jQuery('#languageSelect').multiselect({
+      columns: 1,
+      placeholder: 'Select Author',
+      search: true
+    });
     searchGenres();
-  }
+  });
+
+
