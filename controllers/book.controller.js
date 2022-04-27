@@ -7,18 +7,25 @@ exports.save = async (req, res, next) => {
 
     //substituir aquesta part per foreach, per les multiples consultes
     //get author name and search it to grab the model
-    let getAuthor = req.body.author;
-    let author = await Author.model.findOne({completeName: getAuthor});
+    let getAuthor = req.body.authors;    
+    let authorList = new Array;
+    for(let element of getAuthor){
+        let author = await Author.model.findOne({completeName: element});
+        authorList.push(author);
+    };
 
     //get genre name and search it to grab the model
-    let getGenre = req.body.genre;
-    let genre = await Genre.model.findOne({name: getGenre});
+    let getGenre = req.body.genres;
+    let genreList = new Array;
+    for(let element of getGenre){
+        let genre = await Genre.model.findOne({name: element});
+        genreList.push(genre);
+    }
 
-    console.log(author + " " + genre);
-
+    //console.log(author + " " + genre);
     //save the book
-    let book = new Book({bookName: req.body.bookName, author: author, genre: genre});
-    console.log(book);
+    let book = new Book({bookName: req.body.bookName, author: authorList, genre: genreList});
+    //console.log(book);
     book.save();
     res.redirect("/");
 }
