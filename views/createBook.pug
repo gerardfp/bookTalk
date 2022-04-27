@@ -29,10 +29,9 @@ script.
 
   function searchGenres() {
     let datalist = document.getElementById("genreSelect");
-    var listOfGenresStr = `#{genreList}`;
-    let listOfGenres = listOfGenresStr.replaceAll("&quot;","\"");
-    let list = JSON.parse(listOfGenres);
-    list.forEach(function(entry) {
+    var listOfGenres = !{JSON.stringify(genreList)};
+    console.log(listOfGenres);
+    listOfGenres.forEach(function(entry) {
       let opt = document.createElement("option");
       opt.value = entry.name;
       opt.innerHTML = entry.name;
@@ -47,13 +46,12 @@ script.
   
   document.addEventListener("DOMContentLoaded", function(event) { 
     let datalist = document.getElementById("languageSelect");
-    var listOfAuthorsStr = `#{authorList}`;
-    let listOfAuthors = listOfAuthorsStr.replaceAll("&quot;","\"");
-    let list = JSON.parse(listOfAuthors);
-    list.forEach(function(entry) {
+    var listOfAuthors = !{JSON.stringify(authorList)};
+    console.log(listOfAuthors);
+    listOfAuthors.forEach(function(entry) {
       let opt = document.createElement("option");
-      opt.value = entry.completename;
-      opt.innerHTML = entry.completename;
+      opt.value = entry.completeName;
+      opt.innerHTML = entry.completeName;
       datalist.appendChild(opt);
     });
     jQuery('#languageSelect').multiselect({

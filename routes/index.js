@@ -9,7 +9,7 @@ const path = require('path');
 var authorController = require('../controllers/author.controller.js');
 var bookController = require('../controllers/book.controller.js');
 var genreController = require('../controllers/genre.controller.js');
-
+var reviewController = require('../controllers/review.controller.js');
 //Middleware para mostrar datos del request
 router.use (function (req,res,next) {
   console.log('/' + req.method);
@@ -25,26 +25,15 @@ router.get('/',function(req,res){
 router.get('/book/add',genreController.get);
 router.get('/book/add',authorController.get);
 router.get('/book/add',function(req,res){
-  let listOfAuthors = new Array;
-  req.authors.forEach(function(entry) {
-    let author = {id: entry._id, completename: entry.completeName};
-    listOfAuthors.push(author);
-  });
-
-  listOfAuthors = JSON.stringify(listOfAuthors);
-  console.log(listOfAuthors);
-
-  let listOfGenres = new Array;
-  req.genres.forEach(function(entry) {
-    let genre = {id: entry._id, name: entry.name};
-    listOfGenres.push(genre);
-  });
-  listOfGenres = JSON.stringify(listOfGenres);
-  console.log(listOfGenres);
-
-  res.render('createBook.pug',{authorList: listOfAuthors, genreList: listOfGenres});
+  res.render('createBook.pug',{authorList: req.authors, genreList: req.genres});
 });
 router.post('/book/add/save',bookController.save);
+
+router.get('/book/list',bookController.list);
+router.get('/book/list', function(req,res){
+  res.render('listOfBooks.pug');
+});
+
 
 //author
 router.get('/author/add',function(req,res){
@@ -53,10 +42,18 @@ router.get('/author/add',function(req,res){
 router.post('/author/add/save',authorController.save);
 router.post('/author/search',authorController.get);
 
+
 //genre
 router.get('/genre/add',function(req,res){
   res.render('createGenre.pug');
 });
 router.post('/genre/add/save',genreController.save);
+
+
+//review
+router.get('/review/add',function(req,res){
+  res.render('createReview.pug');
+});
+//router.post('/review/add/save',reviewController.save);
 
 module.exports = router;

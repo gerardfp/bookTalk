@@ -33,3 +33,9 @@ exports.save = async (req, res, next) => {
     }
     res.redirect("/");
 }
+
+exports.list  = async (req, res, next) => {
+    req.allBooksList = await Book.find();
+    console.log(req.allBooksList);
+    next();
+}

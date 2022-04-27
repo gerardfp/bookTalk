@@ -1,0 +1,13 @@
+html
+  head
+    title= "review form"
+  body
+    form(action="/review/add/save", method="post")
+        label(for="authorName") Nombre Completo:
+        input(type="text", name="authorName")
+        br
+        br
+        label(for="wikipedialink") WikipediaLink:
+        input(type="text", name="wikipedialink")
+        br
+        input(type="submit", value="Enviar")
