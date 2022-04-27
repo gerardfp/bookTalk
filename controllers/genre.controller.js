@@ -1,9 +1,14 @@
 var Genre = require('../models/genre.model.js');
 
-exports.save = (req, res, next) => { 
-    let genre = new Genre.model({name: req.body.genreName, description: req.body.description});
-    console.log(genre);
-    genre.save();
+exports.save = async (req, res, next) => { 
+    let genre = await Genre.model.findOne({name: req.body.genreName, description: req.body.description});
+    if (genre == undefined) {
+        let genre = new Genre.model({name: req.body.genreName, description: req.body.description});
+        console.log(genre);
+        genre.save();
+    } else {
+        console.log("genre already in the database");
+    }
     res.redirect("/");
 }
 

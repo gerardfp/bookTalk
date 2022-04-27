@@ -22,10 +22,14 @@ exports.save = async (req, res, next) => {
         genreList.push(genre);
     }
 
-    //console.log(author + " " + genre);
     //save the book
-    let book = new Book({bookName: req.body.bookName, author: authorList, genre: genreList});
-    //console.log(book);
-    book.save();
+    let testSearchBook = await Book.findOne({bookName: req.body.bookName, author: authorList, genre: genreList});
+    if (testSearchBook == undefined) {
+        let book = new Book({bookName: req.body.bookName, author: authorList, genre: genreList});
+        console.log(book);
+        book.save();
+    } else {
+        console.log("book alredy in the database");
+    }
     res.redirect("/");
 }
