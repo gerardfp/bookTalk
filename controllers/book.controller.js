@@ -25,7 +25,7 @@ exports.save = async (req, res, next) => {
     //save the book
     let testSearchBook = await Book.findOne({bookName: req.body.bookName, author: authorList, genre: genreList});
     if (testSearchBook == undefined) {
-        let book = new Book({bookName: req.body.bookName, author: authorList, genre: genreList});
+        let book = new Book({bookName: req.body.bookName.toLowerCase(), author: authorList, genre: genreList});
         console.log(book);
         book.save();
     } else {
@@ -38,4 +38,12 @@ exports.list  = async (req, res, next) => {
     req.allBooksList = await Book.find();
     console.log(req.allBooksList);
     next();
+}
+
+exports.filterList  = async (req, res, next) => {
+    console.log(req.body);
+    //let resultQueryBooks = await Book.find({ bookName: { $regex: req.body.text.toLowerCase() } });
+    //console.log(req.resultQueryBooks);
+    //res(resultQueryBooks);
+    res.redirect("/review/add");
 }

@@ -3,11 +3,38 @@ html
     title= "review form"
   body
     form(action="/review/add/save", method="post")
-        label(for="authorName") Nombre Completo:
-        input(type="text", name="authorName")
+        label(for="authorName") Titulo del libro:
+        input(type="text", name="booktitle", id="booktitle")
+        datalist(id="bookSearch")
         br
         br
-        label(for="wikipedialink") WikipediaLink:
-        input(type="text", name="wikipedialink")
+        p Aqui detalls del llibre
+        div(id="bookInfo")
+        br
+        br
+        label(for="wikipedialink") Titulo Review:
+        input(type="text", name="reviw Title")
+        br
+        label(for="wikipedialink") Review:
+        textArea(name="review")
         br
         input(type="submit", value="Enviar")
+script.
+  var booktitle = document.getElementById("booktitle");
+  booktitle.addEventListener('keyup', async (e) => {
+    const text = e.currentTarget.value;
+    if (text.length > 3){
+      const response = await fetch("/book/list/query",
+      {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            text
+          })
+      });
+      //mirar mode
+      console.log(response);
+    }
+  });

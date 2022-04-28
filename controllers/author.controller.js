@@ -4,7 +4,7 @@ exports.save = async (req, res, next) => {
 
     let author = await Author.model.findOne({completeName: req.body.authorName,wikipediaLink: req.body.wikipedialink});
     if (author == undefined) {
-        let author = new Author.model({completeName: req.body.authorName, wikipediaLink: req.body.wikipedialink});
+        let author = new Author.model({completeName: req.body.authorName.toLowerCase(), wikipediaLink: req.body.wikipedialink});
         console.log(author);
         author.save();
     } else {

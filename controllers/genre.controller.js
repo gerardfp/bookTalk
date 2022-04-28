@@ -3,7 +3,7 @@ var Genre = require('../models/genre.model.js');
 exports.save = async (req, res, next) => { 
     let genre = await Genre.model.findOne({name: req.body.genreName, description: req.body.description});
     if (genre == undefined) {
-        let genre = new Genre.model({name: req.body.genreName, description: req.body.description});
+        let genre = new Genre.model({name: req.body.genreName.toLowerCase(), description: req.body.description});
         console.log(genre);
         genre.save();
     } else {

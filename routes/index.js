@@ -29,10 +29,13 @@ router.get('/book/add',function(req,res){
 });
 router.post('/book/add/save',bookController.save);
 
-router.get('/book/list',bookController.list);
-router.get('/book/list', function(req,res){
-  res.render('listOfBooks.pug');
+//AQUESTA NO S'UTILITZA
+router.get('/book/list/all',bookController.list);
+router.get('/book/list/alll', function(req,res){
+  res.render('listOfBooks.pug', {listOfBooks: req.allBooksList});
 });
+
+router.post('/book/list/query',bookController.filterList);
 
 
 //author
