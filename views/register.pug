@@ -1,0 +1,25 @@
+extends header 
+block content
+    form(action="/user/signup/save" method="post").block
+        h1 Register 
+        br
+        div()#errores
+        input(type="text" name="username" placeholder="Nombre Usuario").input__login
+        br
+        br
+        input(type="text" name="completeName" placeholder="Nombre completo").input__login
+        br
+        br
+        input(type="date" name="birthDate" placeholder="Fecha de nacimiento").input__login
+        br
+        br
+        input(type="mail" name="email" placeholder="email").input__login
+        br
+        br
+        input(type="password" name="password" placeholder="Contraseña").input__login
+        br
+        br
+        input(type="password" name="password2" placeholder="Repite la contraseña").input__login
+        br
+        br
+        button(type="submit").block__button Register

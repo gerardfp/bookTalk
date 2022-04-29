@@ -86,7 +86,7 @@ body section {
   opacity: 0.75;
 }
 .drop .drop-display:after {
-  font-family: 'Material Icons';
+  /* font-family: 'Material Icons'; */
   content: "\e5c6";
   position: absolute;
   right: 10px;
@@ -276,4 +276,276 @@ body section {
     margin: 0px;
     border-width: 0px;
   }
+}
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;0,800;1,400&display=swap');
+
+:root {
+    --header-color: #023436;
+    --background-color: #ddd8c4;
+    --book-color: #69a297;
+    --review-color: #a3c9a8;
+    --genre--color: #84b59f;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--background-color);
+    width: 100%;
+    height: 100vh;
+    color: var(--header-color);
+}
+
+
+/* Header */
+
+.header {
+    background: var(--header-color);
+    height: 70px;
+    width: 100%;
+    color: var(--background-color);
+    margin: 0;
+
+}
+
+.container_ {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.nav__container {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10%;
+    /* border: 1px solid white; */
+}
+
+.input__icons svg {
+    position: absolute;
+}
+
+.input__icons {
+    width: 40%;
+    color: var(--header-color);
+}
+
+.icon {
+    margin-right: 10px;
+    height: 40px;
+}
+
+.input__field {
+    width: 100%;
+    height: 40px;
+    text-align: start;
+    border-radius: 10px;
+}
+
+.nav__title {
+    font-size: 25px;
+}
+
+.header__content {
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.header__icon {
+    width: 35px;
+    height: 35px;
+    margin-left: 7px;
+}
+
+.header__link {
+    margin-left: 7px;
+}
+
+.nav__link {
+    color: var(--background-color);
+    text-decoration: none;
+}
+
+.nav__link:hover {
+    color: var(--review-color);
+    text-decoration: none;
+}
+
+
+/* Login / Register */
+
+.block {
+    width: 60%;
+    height: 60%;
+    margin-top: 170px;
+    margin-left: 20%;
+    justify-content: start;
+}
+
+.input__login {
+    width: 100%;
+    height: 40px;
+    text-align: start;
+    border-radius: 6px;
+}
+
+.block__button {
+    width: 40%;
+    height: 40px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: var(--book-color);
+    color: var(--header-color);
+}
+
+
+/* Editar usuario */
+
+.block__userEdit {
+    width: 60%;
+    height: 65%;
+    margin-top: 100px;
+    margin-left: 20%;
+    justify-content: start;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px var(--header-color);
+    background-color: var(--review-color);
+}
+
+.block__green1 {
+    width: 100%;
+    height: 20%;
+    background-color: var(--book-color);
+    border-radius: 10px 10px 0px 0px;
+}
+
+.circle {
+    width: 125px;
+    height: 125px;
+    border-radius: 100px;
+    margin-left: 41%;
+    margin-top: -50px;
+    margin-bottom: 0px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.circle__icon {
+    margin-top: 20%;
+    width: 65px;
+    height: 65px;
+    color: var(--header-color);
+}
+
+.circle__img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.block__green2 {
+    width: 100%;
+    height: 70%;
+    margin-top: 20px;
+}
+
+.edit__icon {
+    width: 20px;
+    height: 20px;
+    color: var(--header-color);
+}
+
+.edit__icon:hover {
+    color: var(--book-color);
+}
+
+.param {
+    display: flex;
+    margin: 20px;
+    justify-content: space-between;
+}
+
+.input__user {
+    width: 30%;
+    height: 40px;
+    text-align: start;
+    border-radius: 6px;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.edit__button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+
+/* Home */
+
+.content {
+    display: grid;
+    /* border: 1px solid; */
+    margin-top: 0px;
+    padding-top: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+    gap: 35px;
+    height: 100vh;
+}
+
+.left {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    height: 600px;
+    /* border: 1px solid; */
+}
+
+.book {
+    background-color: var(--book-color);
+    height: 50px;
+}
+
+.review {
+    background-color: var(--review-color);
+}
+
+.right {
+    grid-column: 4;
+    grid-row: 1;
+    height: 600px;
+    /* border: 1px solid; */
+}
+
+.genere {
+    background-color: var(--genre--color);
+    height: 50%;
+    border-radius: 5px;
+}
+
+.newReview {
+    width: 80%;
+    height: 40px;
+    text-align: center;
+    border-radius: 6px;
+    background-color: var(--book-color);
+    color: var(--header-color);
+    margin-top: 10px;
 }

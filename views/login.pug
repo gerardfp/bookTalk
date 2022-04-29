@@ -1,0 +1,12 @@
+extends header 
+block content
+    form(action="/user/signin/save" method="post").block
+        h1 Login 
+        br
+        input(type="text" name="username" placeholder="Nombre Usuario").input__login
+        br
+        br
+        input(type="password" name="password" placeholder="Contraseña").input__login
+        br
+        br
+        button(type="submit").block__button Login

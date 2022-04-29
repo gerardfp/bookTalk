@@ -1,9 +1,14 @@
 var express = require('express');
+
 var app = express();
 var mongoose = require('mongoose');
 const index = require('./routes/index');
 const path = __dirname + '/views/';
 const bodyParser = require("body-parser");
+
+//route used to save files
+const filesPath = __dirname + '/public/profilePictures/';
+exports.filesPath = filesPath;
 
 const Path = require('path');
 
