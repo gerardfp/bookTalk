@@ -24,17 +24,19 @@ script.
   booktitle.addEventListener('keyup', async (e) => {
     const text = e.currentTarget.value;
     if (text.length > 3){
+      var formData = new FormData();
+      formData.append('text', e.currentTarget.value);
+      
       const response = await fetch("/book/list/query",
       {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text
-          })
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: formData
       });
-      //mirar mode
       console.log(response);
     }
   });
