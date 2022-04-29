@@ -33,6 +33,9 @@ script.
     bookSelected = "";
     const text = e.currentTarget.value;
     if (text.length > 3){
+      var formData = new FormData();
+      formData.append('text', e.currentTarget.value);
+      
       const response = await fetch("/book/list/query",
       {
         method: 'POST',
