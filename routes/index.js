@@ -52,6 +52,7 @@ router.get('/user/edit',function(req,res){
   res.render('userEdit.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, biography: req.session.biography, profilePicture: req.session.profilePicture})
 });
 
+
 router.post('/user/edit/params', UserController.edit);
 router.post('/user/edit/img', function(req, res, next){
   const form = formidable({ });
@@ -66,18 +67,18 @@ router.post('/user/edit/img', function(req, res, next){
     var sess = req.session;
     let newName = sess.username;
     let picture = app.filesPath.split("/");
-    let posPicture = picture[7] + "/" + picture[8] + "/" + newName + "." + files.profilePicture.mimetype.split("/")[1];
-    console.log(posPicture);
+    // let posPicture = picture[7] + "/" + picture[8] + "/" + newName + "." + files.profilePicture.mimetype.split("/")[1];
+    // console.log(posPicture);
     console.log(app.filesPath);
-    fs.rename(filePath, app.filesPath + newName + "." + files.profilePicture.mimetype.split("/")[1] , function(err) {
+    fs.rename(filePath, newName + "." + files.profilePicture.mimetype.split("/")[1] , function(err) {
       if (err) throw err
       
       console.log('Succesfully');
     });
-    User.findOneAndUpdate({username: sess.username}, {profilePicture: "../" + posPicture}, function(err, user) {
+    User.findOneAndUpdate({username: sess.username}, {profilePicture: newName + "." + files.profilePicture.mimetype.split("/")[1]}, function(err, user) {
       user.save();
     });
-    sess.profilePicture = "../" + "../" + posPicture;
+    sess.profilePicture = newName + "." + files.profilePicture.mimetype.split("/")[1];
   });
   
 

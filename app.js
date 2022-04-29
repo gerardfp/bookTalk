@@ -6,7 +6,7 @@ const index = require('./routes/index');
 const path = __dirname + '/views/';
 
 //route used to save files
-const filesPath = __dirname + '/public/profilePictures/'
+const filesPath = __dirname + '/public/profilePictures/';
 exports.filesPath = filesPath;
 
 const Path = require('path');

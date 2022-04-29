@@ -1,4 +1,5 @@
 var User = require('../models/user.model');
+var app = require('../app.js');
 
 
 var register = (req, res, next) => {
@@ -114,7 +115,7 @@ var login = (req, res, next) => {
             sess.birthDate = formatted_date;
             sess.email = user.email;
             sess.biography = user.biography;
-            sess.profilePicture = user.profilePicture;
+            sess.profilePicture = app.filesPath + user.profilePicture;
             res.redirect('/');
         } else {
             res.redirect('/user/signup');
