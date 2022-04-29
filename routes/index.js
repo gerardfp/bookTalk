@@ -57,6 +57,6 @@ router.post('/genre/add/save',genreController.save);
 router.get('/review/add',function(req,res){
   res.render('createReview.pug');
 });
-//router.post('/review/add/save',reviewController.save);
+router.post('/review/add/save',reviewController.save);
 
 module.exports = router;

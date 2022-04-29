@@ -3,10 +3,12 @@ var app = express();
 var mongoose = require('mongoose');
 const index = require('./routes/index');
 const path = __dirname + '/views/';
+const bodyParser = require("body-parser");
 
 const Path = require('path');
 
 app.set('view engine', 'pug');
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path));
 

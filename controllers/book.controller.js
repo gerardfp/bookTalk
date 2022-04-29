@@ -41,9 +41,9 @@ exports.list  = async (req, res, next) => {
 }
 
 exports.filterList  = async (req, res, next) => {
-    console.log(req.body);
-    //let resultQueryBooks = await Book.find({ bookName: { $regex: req.body.text.toLowerCase() } });
-    //console.log(req.resultQueryBooks);
-    //res(resultQueryBooks);
-    res.redirect("/review/add");
+    let userInput = req.body.text.toLowerCase();
+    let resultQueryBooks = await Book.find({ bookName: new RegExp(userInput) });
+    console.log(resultQueryBooks);
+    res.json(resultQueryBooks);
+    return;
 }

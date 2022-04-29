@@ -4,8 +4,9 @@ html
   body
     form(action="/review/add/save", method="post")
         label(for="authorName") Titulo del libro:
-        input(type="text", name="booktitle", id="booktitle")
+        input(type="text" id="booktitle" name="booktitle" list="bookSearch")
         datalist(id="bookSearch")
+          option(value="")
         br
         br
         p Aqui detalls del llibre
@@ -13,28 +14,49 @@ html
         br
         br
         label(for="wikipedialink") Titulo Review:
-        input(type="text", name="reviw Title")
+        input(type="text", name="reviewTitle")
+        br
+        label(for="wikipedialink") Score:
+        input(type="text", name="score")
         br
         label(for="wikipedialink") Review:
         textArea(name="review")
         br
         input(type="submit", value="Enviar")
 script.
+  bookSelected = "";
   var booktitle = document.getElementById("booktitle");
+  var datalist = document.getElementById("bookSearch");
+
   booktitle.addEventListener('keyup', async (e) => {
+    datalist.innerHTML = "";
+    bookSelected = "";
     const text = e.currentTarget.value;
     if (text.length > 3){
       const response = await fetch("/book/list/query",
       {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text
-          })
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({text})});
+      const data = await response.json();
+      data.forEach(function(entry) {
+        let opt = document.createElement("option");
+        opt.value = entry.bookName;
+        opt.innerHTML = entry.bookName;
+        opt.setAttribute("onclick" ,"seeBook()");
+        bookSelected = entry;
+        datalist.appendChild(opt);
       });
-      //mirar mode
-      console.log(response);
+    }
+    if (text.length > 3 && bookSelected != ""){
+      console.log(bookSelected);
+      var divInfo = document.getElementById("bookInfo");
+      divInfo.innerHTML = "";
+      const para = document.createElement("p");
+      const textNode = document.createTextNode(JSON.stringify(bookSelected));
+      para.appendChild(textNode);
+      divInfo.appendChild(para);
     }
   });

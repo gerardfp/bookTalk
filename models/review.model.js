@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 var review = new Schema({
     reviewTitle: String,
     reviewScore: Number,
-    reviewText: Text,
+    reviewText: String,
     bookImage: String, //route to file
     numberOfLikes: Number,
     bookId: String
