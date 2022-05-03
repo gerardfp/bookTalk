@@ -7,8 +7,9 @@ var review = new Schema({
     reviewText: String,
     bookImage: String, //route to file
     numberOfLikes: Number,
-    bookId: String
+    bookId: String,
+    username: String
 });
 
 const Review = mongoose.model('Review', review);
-module.exports = Review;
+module.exports = {model:Review,schema:review};

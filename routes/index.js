@@ -5,17 +5,20 @@ var User = require('../models/user.model');
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const UserController = require('../controllers/user.controller.js');
 const session = require('express-session');
 const formidable = require('formidable');
 var fs = require('fs');
 var app = require('../app.js');
 
 //required of needed controllers
-var authorController = require('../controllers/author.controller.js');
-var bookController = require('../controllers/book.controller.js');
-var genreController = require('../controllers/genre.controller.js');
-var reviewController = require('../controllers/review.controller.js');
+const UserController = require('../controllers/user.controller.js');
+const authorController = require('../controllers/author.controller.js');
+const bookController = require('../controllers/book.controller.js');
+const genreController = require('../controllers/genre.controller.js');
+const reviewController = require('../controllers/review.controller.js');
+const userXcommentXreview = require('../controllers/userXcommentXreview.controller');
+
+
 //Middleware para mostrar datos del request
 router.use (function (req,res,next) {
   console.log('/' + req.method);
@@ -54,6 +57,7 @@ router.get('/book/list/alll', function(req,res){
 });
 
 router.post('/book/list/query',bookController.filterList);
+router.post('/book/list/queryByTitle',bookController.bookTitle);
 
 
 //author
@@ -73,18 +77,31 @@ router.post('/genre/add/save',genreController.save);
 
 //review
 router.get('/review/add',function(req,res){
-  res.render('createReview.pug');
+  res.render('createReview.pug', {username: req.session.username});
 });
 router.post('/review/add/save',reviewController.save);
+router.get('/review/list', reviewController.list);
+router.get('/review/list', function(req,res){
+  res.render('listOfReviews.pug', {username: req.session.username, listOfReviews: req.allReviewList});
+});
+  //one review passar la review de la bd i el llibre
+router.get('/review/:idReview', reviewController.oneReview);
+router.get('/review/:idReview', function(req,res){
+  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook});
+});
+  //comment part
+router.post('/review/comment/new',userXcommentXreview.saveCommentMadeByUserInReview);
 
-router.post('/user/signup/save', UserController.register);
+
 
 //Login
 router.get('/user/signin',function(req,res){
   res.render('login.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
+//login and register form
 router.post('/user/signin/save', UserController.login);
+router.post('/user/signup/save', UserController.register);
 
 //Modify User
 router.get('/user/edit',function(req,res){
@@ -92,8 +109,8 @@ router.get('/user/edit',function(req,res){
   res.render('userEdit.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, biography: req.session.biography, profilePicture: req.session.profilePicture})
 });
 
-
 router.post('/user/edit/params', UserController.edit);
+
 router.post('/user/edit/img', function(req, res, next){
   const form = formidable({ });
   form.parse(req, (err, fields, files) => {
@@ -124,4 +141,8 @@ router.post('/user/edit/img', function(req, res, next){
 
   res.redirect('/user/edit');
 });
+
+//user page (comments remain to be done)
+router.get('/user/profile/:username',reviewController.listMadeByUser);
+
 module.exports = router;

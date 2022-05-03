@@ -1,6 +1,7 @@
 html
   head
     title= "review form"
+    - var username = username;
   body
     form(action="/review/add/save", method="post")
         label(for="authorName") Titulo del libro:
@@ -22,6 +23,7 @@ html
         label(for="wikipedialink") Review:
         textArea(name="review")
         br
+        input(type="hidden", name="username", value=username)
         input(type="submit", value="Enviar")
 script.
   bookSelected = "";
@@ -32,10 +34,7 @@ script.
     datalist.innerHTML = "";
     bookSelected = "";
     const text = e.currentTarget.value;
-    if (text.length > 3){
-      var formData = new FormData();
-      formData.append('text', e.currentTarget.value);
-      
+    if (text.length > 3){  
       const response = await fetch("/book/list/query",
       {
         method: 'POST',

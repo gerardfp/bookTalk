@@ -6,9 +6,9 @@ const User = require('./user.model');
 const Schema = mongoose.Schema;
 
 var userXcommentXreview = new Schema({
-    user: User,
-    review: Review,
-    comments: [Commentary]
+    user: User.schema,
+    review: Review.schema,
+    comments: [Commentary.schema]
 });
 
 const UserXcommentXreview = mongoose.model('UserXcommentXreview', userXcommentXreview);

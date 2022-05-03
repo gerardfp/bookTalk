@@ -104,7 +104,7 @@ var register = (req, res, next) => {
 };
 
 var login = (req, res, next) => {
-    User.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
+    User.model.findOne({username: req.body.username, password: req.body.password}, function(err, user) {
         if (user != undefined) {
             var birthDate = user.birthDate;
             let formatted_date = birthDate.getFullYear() + '-' + (birthDate.getDate() - 1) + '-' + (birthDate.getMonth() + 1);

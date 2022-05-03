@@ -1,0 +1,40 @@
+html
+  head
+    title= "One Review"
+    - var username = username;
+  body
+    h1 One Review
+    div(id="book")
+        h3 Info del llibre
+    div(id="review")
+        h3 Review
+    div(id="comment")
+        h3 Commentaris
+        form(method="post" action="/review/comment/new")
+            textArea(name="comment")
+            input(type="hidden", name="username", value=username)
+            input(type="hidden", name="reviewId", id="revId")
+            input(type="submit", value="Comment")
+
+
+
+script.
+    let bookText = !{JSON.stringify(theBook)};
+    let divBook = document.getElementById("book");
+    console.log(bookText);
+    const book = document.createElement("p");
+    const booktextNode = document.createTextNode(JSON.stringify(bookText));
+    book.appendChild(booktextNode);
+    divBook.appendChild(book);
+
+    let reviewText = !{JSON.stringify(theReview)};
+    let divReview = document.getElementById("review");
+    console.log(bookText);
+    const review = document.createElement("p");
+    const reviewtextNode = document.createTextNode(JSON.stringify(reviewText));
+    review.appendChild(reviewtextNode);
+    divReview.appendChild(review);
+
+    document.getElementById("revId").value = reviewText._id;
+
+    
