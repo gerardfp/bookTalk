@@ -1,0 +1,23 @@
+extends header 
+block content
+    head
+        - var username2 = username2;
+        - var profilePicture2 = "/public/" + profilePicture2;
+        - var biography2 = biography2;
+    div.content
+        div.left
+            div.user
+                div.name
+                    h1 #{username2}
+                div.pictureUser
+                    if (profilePicture2 == " " || profilePicture2 == null)
+                        svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16").circle__icon
+                            path(d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z")
+                    else
+                        img(src=profilePicture2).pictureUser__img
+                div.biography
+                    p #{biography2}
+            div.reviewUser
+        div.right
+            div.genere
+            button.newReview Crea tu reseña

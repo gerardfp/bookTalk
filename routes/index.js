@@ -92,6 +92,29 @@ router.get('/user/edit',function(req,res){
   res.render('userEdit.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, biography: req.session.biography, profilePicture: req.session.profilePicture})
 });
 
+//User
+router.get('/user/:username', function(req, res) {
+  let username = req.params.username;
+  User.findOne({ username: username }, function(err, userBD) {
+    if (err) {
+      return res.json({
+        succes: false,
+        msj: 'No se ha encontrado ningún usuario',
+        err
+      });
+    } else {
+      // UserXcommentXreview.find({ user: userBD }, function(err, userXcommentXreview) {
+      //   if (err) {
+      //     return res.render('user.pug');
+      //   } else {
+      //     res.render('user.pug', {taulaConjunta: userXcommentXreview, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture});
+      //   }
+      // })
+      res.render('user.pug', {username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
+    }
+  })
+});
+
 
 router.post('/user/edit/params', UserController.edit);
 router.post('/user/edit/img', function(req, res, next){
@@ -101,16 +124,12 @@ router.post('/user/edit/img', function(req, res, next){
       next(err);
       return;
     }
-    //res.json({ fields, files });
 
     let filePath = files.profilePicture.filepath;
     var sess = req.session;
     let newName = sess.username;
-    let picture = app.filesPath.split("/");
-    // let posPicture = picture[7] + "/" + picture[8] + "/" + newName + "." + files.profilePicture.mimetype.split("/")[1];
-    // console.log(posPicture);
-    console.log(app.filesPath);
-    fs.rename(filePath, newName + "." + files.profilePicture.mimetype.split("/")[1] , function(err) {
+
+    fs.rename(filePath,app.filesPath + newName + "." + files.profilePicture.mimetype.split("/")[1] , function(err) {
       if (err) throw err
       
       console.log('Succesfully');
@@ -123,5 +142,6 @@ router.post('/user/edit/img', function(req, res, next){
   
 
   res.redirect('/user/edit');
+
 });
 module.exports = router;

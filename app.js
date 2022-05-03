@@ -1,5 +1,4 @@
 var express = require('express');
-
 var app = express();
 var mongoose = require('mongoose');
 const index = require('./routes/index');
@@ -19,7 +18,7 @@ app.use(express.static(path));
 
 app.use('/css', express.static(Path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(Path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-
+app.use('/public', express.static(Path.join(__dirname, '/public/profilePictures')));
 
 app.use('/', index);
 
