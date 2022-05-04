@@ -115,7 +115,7 @@ var login = (req, res, next) => {
             sess.birthDate = formatted_date;
             sess.email = user.email;
             sess.biography = user.biography;
-            sess.profilePicture = app.filesPath + user.profilePicture;
+            sess.profilePicture = "/public/" + user.profilePicture;
             res.redirect('/');
         } else {
             res.redirect('/user/signup');
@@ -193,7 +193,6 @@ var edit = (req, res, next) => {
             res.redirect('/user/edit');
         }
     }
-    //FALTA FER FOTO
     
     
 };
