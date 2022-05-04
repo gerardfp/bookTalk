@@ -550,6 +550,10 @@ body {
     margin-top: 10px;
 }
 
+.newReview:hover {
+  color: var(--background-color);
+}
+
 
 /* User */
 .user {
@@ -611,7 +615,7 @@ body {
 .infoBook {
   background-color: var(--book-color);
   border-radius: 10px 10px 0px 0px;
-  height: 30%;
+  height: 40%;
   padding: 5px;
 }
 
@@ -666,7 +670,7 @@ body {
 
 .review__button {
   text-align: end;
-  padding-top: 10vh;
+  padding-bottom: 5vh;
   margin-right: 5%;
 }
 
@@ -678,4 +682,58 @@ body {
   background-color: var(--book-color);
   color: var(--header-color);
   margin-top: 10px;
+}
+
+.createBook {
+  margin-top: 20px;
+}
+
+.newBook {
+  width: 30%;
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--genre--color);
+  margin-top: 10px;
+  text-decoration: none;
+  color: var(--header-color);
+}
+
+.newBook:hover {
+  color: var(--background-color);
+}
+
+/* New Book */
+.new__book {
+  padding: 14%;
+  background-color: var(--review-color);
+  border-radius: 10px 10px 10px 10px;
+  height: 70%;
+}
+
+.nameBook {
+  padding-top: 20px;
+  margin-right: 20px;
+}
+
+.author {
+  margin-top: 30px;
+}
+
+.genre {
+  margin-top: 20px;
+}
+
+.inputBook__new {
+  width: 30%;
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--book-color);
+  color: var(--header-color);
+  margin-top: 38px;
+}
+
+.inputBook__new:hover {
+  color: var(--background-color);
 }

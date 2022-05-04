@@ -8,10 +8,12 @@ block content
             div.bookTitle
               label(for="authorName") Titulo del libro:
               input(type="text" id="booktitle" name="booktitle" list="bookSearch").inputReview
+            div(id="createBook" hidden).createBook 
+              a(href="/book/add")
+                input(type="button" href="/book/add" value="Crear Libro").newBook
             div.info__book
               datalist(id="bookSearch")
                 option(value="")
-              p Aqui detalls del llibre
               div(id="bookInfo")
           div.infoReview
             div.title__review
@@ -30,6 +32,7 @@ block content
       //- button.newReview Crea tu reseña
   script.
     bookSelected = "";
+    visibleBook = false;
     var booktitle = document.getElementById("booktitle");
     var datalist = document.getElementById("bookSearch");
 
@@ -37,6 +40,7 @@ block content
       datalist.innerHTML = "";
       bookSelected = "";
       const text = e.currentTarget.value;
+      
       if (text.length > 3){
         var formData = new FormData();
         formData.append('text', e.currentTarget.value);
@@ -49,6 +53,13 @@ block content
           },
           body: JSON.stringify({text})});
         const data = await response.json();
+        
+        if (data.length == 0) {
+          document.getElementById("createBook").removeAttribute("hidden");
+        } else {
+          document.getElementById("createBook").style.visibility = "hidden";
+        }
+
         data.forEach(function(entry) {
           let opt = document.createElement("option");
           opt.value = entry.bookName;
@@ -62,9 +73,14 @@ block content
         console.log(bookSelected);
         var divInfo = document.getElementById("bookInfo");
         divInfo.innerHTML = "";
-        const para = document.createElement("p");
-        const textNode = document.createTextNode(JSON.stringify(bookSelected));
-        para.appendChild(textNode);
-        divInfo.appendChild(para);
+        const para1 = document.createElement("p");
+        //- const textNode = document.createTextNode(JSON.stringify(bookSelected));
+        const textNode1 = document.createTextNode("Autor: " + bookSelected.author[0].completeName);
+        const para2 = document.createElement("p");
+        const textNode2 = document.createTextNode("Genero: " + bookSelected.genre[0].name);
+        para1.appendChild(textNode1);
+        para2.appendChild(textNode2);
+        divInfo.appendChild(para1);
+        divInfo.appendChild(para2);
       }
     });
