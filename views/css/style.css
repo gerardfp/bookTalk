@@ -501,11 +501,11 @@ body {
 
 .content {
     display: grid;
-    /* border: 1px solid; */
     margin-top: 0px;
     padding-top: 40px;
     padding-left: 30px;
     padding-right: 30px;
+    grid-template-columns: 22.5% 22.5% 22.5% 22.5%;
     gap: 35px;
     height: 100vh;
 }
@@ -514,7 +514,6 @@ body {
     grid-column: 1 / 4;
     grid-row: 1;
     height: 600px;
-    /* border: 1px solid; */
 }
 
 .book {
@@ -596,3 +595,87 @@ body {
 }
 
 /* Nueva resenya */
+.reviewBlock {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  height: 90vh;
+  width: 100%;
+}
+
+.review {
+  background-color: var(--review-color);
+  border-radius: 10px 10px 10px 10px;
+  height: 70%;
+}
+
+.infoBook {
+  background-color: var(--book-color);
+  border-radius: 10px 10px 0px 0px;
+  height: 30%;
+  padding: 5px;
+}
+
+.infoReview {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.inputReview {
+  margin-left: 20px;
+  width: 75%;
+  height: 40px;
+  text-align: start;
+  border-radius: 10px;
+}
+
+.inputReview__textarea {
+  margin-left: 20px;
+  width: 75%;
+  height: 90px;
+  text-align: start;
+  border-radius: 10px;
+}
+
+.bookTitle {
+  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.info__book {
+  padding-top: 20px;
+}
+
+.title__review {
+  height: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.score__review {
+  height: 40px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.review__review {
+  padding-top: 50px;
+  padding-bottom: 10px;
+  justify-content: start;
+}
+
+.review__button {
+  text-align: end;
+  padding-top: 10vh;
+  margin-right: 5%;
+}
+
+.inputReview__new {
+  width: 30%;
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--book-color);
+  color: var(--header-color);
+  margin-top: 10px;
+}

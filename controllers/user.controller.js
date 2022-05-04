@@ -11,7 +11,7 @@ var register = (req, res, next) => {
         console.log("No ha introducido el nombre de usuario");
     } else {
         //mirar si està a la bbdd
-        User.findOne({username: req.body.username}, function(err, user) {
+        User.model.findOne({username: req.body.username}, function(err, user) {
             if (user != undefined) {
                 errors += "El Nombre de usuario ya existe. \n";
                 console.log("Username incorrecte");
@@ -92,7 +92,7 @@ var register = (req, res, next) => {
     if (correcte == 5) {
         console.log("S'ha registrat");
         console.log(req.body.birthDate);
-        var user = new User({username: req.body.username, completeName: req.body.completeName, birthDate: req.body.birthDate, password: req.body.password, email: req.body.email});
+        var user = new User.model({username: req.body.username, completeName: req.body.completeName, birthDate: req.body.birthDate, password: req.body.password, email: req.body.email});
         user.save();
         res.redirect("/user/signin");
     } else {
@@ -128,7 +128,7 @@ var edit = (req, res, next) => {
     if (param == "username") {
         if (req.body.username != "") {
             var sess = req.session;
-            User.findOneAndUpdate({username: sess.username}, {username: req.body.username}, function(err, user) {
+            User.model.findOneAndUpdate({username: sess.username}, {username: req.body.username}, function(err, user) {
                 user.save();
             });
             sess.username = req.body.username;
@@ -139,7 +139,7 @@ var edit = (req, res, next) => {
     } else if (param == "completeName") {
         if (req.body.completeName != "") {
             var sess = req.session;
-            User.findOneAndUpdate({completeName: sess.completeName}, {completeName: req.body.completeName}, function(err, user) {
+            User.model.findOneAndUpdate({completeName: sess.completeName}, {completeName: req.body.completeName}, function(err, user) {
                 user.save();
             });
             sess.completeName = req.body.completeName;
@@ -157,7 +157,7 @@ var edit = (req, res, next) => {
             var year = d[0];
             var month = d[1];
             var day = d[2];
-            User.findOneAndUpdate({username: sess.username}, {birthDate: req.body.birthDate}, function(err, user) {
+            User.model.findOneAndUpdate({username: sess.username}, {birthDate: req.body.birthDate}, function(err, user) {
                 console.log(user);
                 var dataAct = new Date;
                 var OldDate = new Date(year, month, day);
@@ -173,7 +173,7 @@ var edit = (req, res, next) => {
     } else if (param == "email") {
         if (req.body.email != "") {
             var sess = req.session;
-            User.findOneAndUpdate({username: sess.username, email: sess.email}, {email: req.body.email}, function(err, user) {
+            User.model.findOneAndUpdate({username: sess.username, email: sess.email}, {email: req.body.email}, function(err, user) {
                 user.save();
             });
             sess.email = req.body.email;
@@ -184,7 +184,7 @@ var edit = (req, res, next) => {
     } else if (param == "biography") {
         if (req.body.biography != "") {
             var sess = req.session;
-            User.findOneAndUpdate({username: sess.username}, {biography: req.body.biography}, function(err, user) {
+            User.model.findOneAndUpdate({username: sess.username}, {biography: req.body.biography}, function(err, user) {
                 user.save();
             });
             sess.biography = req.body.biography;

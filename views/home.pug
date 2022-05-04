@@ -6,4 +6,5 @@ block content
             div.review
         div.right
             div.genere
-            button.newReview Crea tu reseña
+            form(method="get" action="/review/add")
+                button(type="submit").newReview Crea tu reseña
