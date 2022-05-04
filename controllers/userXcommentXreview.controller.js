@@ -8,6 +8,7 @@ exports.saveCommentMadeByUserInReview  = async (req, res, next) => {
     let reviewFinded = await Review.model.findOne({ _id: req.body.reviewId });
 
     let testSearch = await UserXcommentXreview.model.findOne({userid: userFinded._id, reviewid: reviewFinded._id});
+
     if (testSearch == undefined) {
         let commentsArray = new Array;
         let comment = new Commentary.model({commentText: req.body.comment, numOfLikes: 0, timeStamp: Date.now()});
@@ -15,6 +16,11 @@ exports.saveCommentMadeByUserInReview  = async (req, res, next) => {
         let input = new UserXcommentXreview.model({userid: userFinded._id, reviewid: reviewFinded._id, comments:commentsArray});
         console.log(input);
         input.save();
+    } else {
+        let commentsArray = testSearch.comments;
+        let comment = new Commentary.model({commentText: req.body.comment, numOfLikes: 0, timeStamp: Date.now()});
+        commentsArray.push(comment); 
+        const res = await UserXcommentXreview.model.updateOne({ userid: userFinded._id, reviewid: reviewFinded._id }, { comments:commentsArray });
     }
     res.redirect("/review/list");
 }
