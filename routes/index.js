@@ -110,9 +110,12 @@ router.get('/user/edit',function(req,res){
 });
 
 //User
+//user page (comments remain to be done)
+router.get('/user/:username',reviewController.listMadeByUser);
+router.get('/user/:username',userXcommentXreview.getAllUserComments);
 router.get('/user/:username', function(req, res) {
   let username = req.params.username;
-  User.findOne({ username: username }, function(err, userBD) {
+  User.model.findOne({ username: username }, function(err, userBD) {
     if (err) {
       return res.json({
         succes: false,
@@ -162,8 +165,4 @@ router.post('/user/edit/img', function(req, res, next){
   res.redirect('/user/edit');
 
 });
-
-//user page (comments remain to be done)
-router.get('/user/profile/:username',reviewController.listMadeByUser);
-
 module.exports = router;

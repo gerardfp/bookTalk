@@ -5,7 +5,7 @@ var Book = require('../models/book.model.js');
 exports.save = async (req, res, next) => {
     let bookid = await Book.findOne({bookName: req.body.booktitle});
     console.log(req.body);
-    let review = new Review({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", numberOfLikes: 0, bookId: bookid._id, username: req.body.username});
+    let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", numberOfLikes: 0, bookId: bookid._id, username: req.body.username});
     console.log(review);
     review.save();
     res.redirect("/");
@@ -15,7 +15,9 @@ exports.listMadeByUser = async (req, res, next) => {
     let reviewsMadeByUser = await Review.model.find({ username: req.params.username });
     console.log(req.params.username);
     console.log(reviewsMadeByUser);
-    res.json(reviewsMadeByUser);
+    //res.json(reviewsMadeByUser);
+    req.reviewsMadeByUser = reviewsMadeByUser;
+    next();
 }
 
 exports.list  = async (req, res, next) => {
