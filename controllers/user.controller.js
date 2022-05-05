@@ -3,17 +3,17 @@ var app = require('../app.js');
 
 
 var register = (req, res, next) => {
-    var errors = "";
+    var errors = [];
 
     var correcte = 0;
     if (req.body.username == "") {
-        errors += "El Nombre de usuario está vacio. \n";
+        errors[0] = "El Nombre de usuario está vacio. \n";
         console.log("No ha introducido el nombre de usuario");
     } else {
         //mirar si està a la bbdd
         User.model.findOne({username: req.body.username}, function(err, user) {
             if (user != undefined) {
-                errors += "El Nombre de usuario ya existe. \n";
+                errors[0] = "El Nombre de usuario ya existe. \n";
                 console.log("Username incorrecte");
             } else {
                 correcte++;
@@ -23,14 +23,14 @@ var register = (req, res, next) => {
     }
 
     if (req.body.completeName == "") {
-        errors += "El Nombre completo está vacio. \n";
+        errors[1] = "El Nombre completo está vacio. \n";
         console.log("No ha introducido su nombre completo")
     } else {
         correcte++;
     }
 
     if (req.body.birthDate == "") {
-        errors += "La fecha de nacimiento está vacia";
+        errors[2] = "La fecha de nacimiento está vacia";
         console.log("No ha introducido la fecha de nacimiento");
     } else {
         //comprobar que és una data més antiga a l'actual
@@ -41,13 +41,14 @@ var register = (req, res, next) => {
         var data = new Date;
         var OldDate = new Date(year, month, day);
         if (data.getTime() < OldDate.getTime()) {
-            errors += "La fecha no es correcta. \n";
+            errors[2] = "La fecha no es correcta. \n";
         } else {
             correcte++;
         }
     }
 
     if (req.body.email == "") {
+        errors[3] = "El email está vacio. \n";
         console.log("No ha introducido el correo electronico");
     } else {
         //comprobar que sigui un email
@@ -56,13 +57,14 @@ var register = (req, res, next) => {
             correcte++;
             console.log("email correcte");
         } else {
-            errors += "El email no es correcto. \n";
+            errors[3] = "El email no es correcto. \n";
             console.log("email incorrecte");
         }
         
     }
 
     if ( req.body.password == "") {
+        errors[4] = "La contraseña está vacia. \n";
         console.log("No ha introducido la contraseña");
     } else {
         //comprovar que la contrasenya té minim una minuscula, una majuscula i un numero
@@ -71,7 +73,7 @@ var register = (req, res, next) => {
             correcte++;
             console.log("contraseña correcta");
             if (req.body.password2 == "") {
-                errors += "No ha vuelto a escribir la contraseña. \n";
+                errors[4] = "No ha vuelto a escribir la contraseña. \n";
                 console.log("No ha vuelto a escribir la contraseña");
             } else {
                 //comprobar que les 2 contrasenyes son iguals
@@ -79,12 +81,12 @@ var register = (req, res, next) => {
                     correcte++;
                     console.log("Contraseñas iguales");
                 } else {
-                    errors += "Las contraseñas no son iguales. \n";
+                    errors[4] = "Las contraseñas no son iguales. \n";
                     console.log("Contraseñas distintas");
                 }
             }
         } else {
-            errors += "Contraseña incorrecta: minimo una mayuscula, una minuscula y un numero. \n";
+            errors[4] = "Contraseña incorrecta: minimo una mayuscula, una minuscula y un numero. \n";
             console.log("contraseña incorrecta");
         }
     }
@@ -99,6 +101,12 @@ var register = (req, res, next) => {
         backURL = req.header('Referer') || '/';
         console.log("No s'ha registrat");
         //Volver atras
+        var sess = req.session;
+        sess.errors0 = errors[0];
+        sess.errors1 = errors[1];
+        sess.errors2 = errors[2];
+        sess.errors3 = errors[3];
+        sess.errors4 = errors[4];
         res.redirect(backURL);
     }
 };

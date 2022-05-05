@@ -2,9 +2,44 @@ extends header
 block content
     div.content
         div.left
+            div(id="revContainer")
             div.book 
             div.review
         div.right
             div.genere
             form(method="get" action="/review/add")
                 button(type="submit").newReview Crea tu reseña
+
+        div(id="revContainer")
+
+    script.
+        let list = !{JSON.stringify(listOfReviews)};
+        let divReference = document.getElementById("revContainer");
+        list.forEach(async function(entry) {
+            let divOneRev = document.createElement("div");
+            let idOfBook = entry.bookId;
+            const response = await fetch("/book/list/queryByTitle",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({idOfBook})});
+            const data = await response.json();
+            console.log(entry);
+            console.log(data);
+
+            let bookname = document.createElement("p");
+            bookname.innerHTML = "Titulo: " + data.bookName;
+            let reviewTitle = document.createElement("p");
+            reviewTitle.innerHTML = "Titulo review: " + entry.reviewTitle;
+            let commentLink = document.createElement("a");
+            commentLink.href = "/review/" + entry._id;
+            commentLink.innerHTML = "Link review";
+            divOneRev.appendChild(bookname);
+            divOneRev.appendChild(reviewTitle);
+            divOneRev.appendChild(commentLink);
+
+            divReference.appendChild(divOneRev);
+        });
+
+        

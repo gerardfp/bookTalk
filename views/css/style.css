@@ -387,7 +387,7 @@ body {
 .block {
     width: 60%;
     height: 60%;
-    margin-top: 170px;
+    margin-top: 15vh;
     margin-left: 20%;
     justify-content: start;
 }
@@ -397,6 +397,11 @@ body {
     height: 40px;
     text-align: start;
     border-radius: 6px;
+    margin-top: 15px;
+}
+
+.input__login__c {
+  margin-top: 23px;
 }
 
 .block__button {
@@ -408,9 +413,14 @@ body {
     color: var(--header-color);
 }
 
+.error {
+  color: red;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 
 /* Editar usuario */
-
 .block__userEdit {
     width: 60%;
     height: 600px;
@@ -498,7 +508,6 @@ body {
 
 
 /* Home */
-
 .content {
     display: grid;
     margin-top: 0px;
@@ -583,6 +592,7 @@ body {
   margin-bottom: 0px;
   background-color: #fff;
   text-align: center;
+  border-radius: 10px;
 }
 
 .pictureUser__img {
@@ -592,11 +602,30 @@ body {
 
 .reviewUser {
   width: 100%;
-  height: 80px;
   background-color: var(--review-color);
-  margin-top: 20px;
+  margin-top: 25px;
   border-radius: 10px 10px 10px 10px;
+  padding: 15px;
+  justify-content: space-evenly;
 }
+
+.titleReviewUser {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.userName {
+  margin-bottom: 8px;
+}
+
+.info {
+  width: 85%;
+}
+
+.like {
+  text-align: end;
+}
+
 
 /* Nueva resenya */
 .reviewBlock {
@@ -725,7 +754,7 @@ body {
 }
 
 .inputBook__new {
-  width: 30%;
+  width: 50%;
   height: 40px;
   text-align: center;
   border-radius: 6px;
@@ -736,4 +765,50 @@ body {
 
 .inputBook__new:hover {
   color: var(--background-color);
+}
+
+.cta__create {
+  text-align: end;
+}
+
+.cta__send {
+  text-align: center;
+}
+
+
+/* Nuevo autor */
+.new__author {
+  padding: 18%;
+  background-color: var(--review-color);
+  border-radius: 10px 10px 10px 10px;
+  height: 70%;
+}
+
+.inputAuthor {
+  margin-left: 40px;
+  width: 75%;
+  height: 40px;
+  text-align: start;
+  border-radius: 10px;
+}
+
+.inputAuthor__new {
+  width: 50%;
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--book-color);
+  color: var(--header-color);
+  margin-top: 38px;
+  margin-left: 50px;
+}
+
+.inputAuthor__new:hover {
+  color: var(--background-color);
+}
+
+
+/* Nuevo Genero */
+.cta__sendGenre {
+  text-align: end;
 }

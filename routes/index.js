@@ -33,20 +33,21 @@ router.use(session({
 }));
 
 //Home
+router.get('/', reviewController.list);
 router.get('/',function(req,res){
-  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
+  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList})
 });
 
 //Register
 router.get('/user/signup',function(req,res){
-  res.render('register.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
+  res.render('register.pug', {errors0: req.session.errors0, errors1: req.session.errors1, errors2: req.session.errors2, errors3: req.session.errors3, errors4: req.session.errors4, username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
 //book
 router.get('/book/add',genreController.get);
 router.get('/book/add',authorController.get);
 router.get('/book/add',function(req,res){
-  res.render('createBook.pug',{authorList: req.authors, genreList: req.genres});
+  res.render('createBook.pug',{username: req.session.username, authorList: req.authors, genreList: req.genres});
 });
 router.post('/book/add/save',bookController.save);
 
@@ -62,7 +63,7 @@ router.post('/book/list/queryByTitle',bookController.bookTitle);
 
 //author
 router.get('/author/add',function(req,res){
-  res.render('createAuthor.pug');
+  res.render('createAuthor.pug', {username: req.session.username});
 });
 router.post('/author/add/save',authorController.save);
 router.post('/author/search',authorController.get);
@@ -70,7 +71,7 @@ router.post('/author/search',authorController.get);
 
 //genre
 router.get('/genre/add',function(req,res){
-  res.render('createGenre.pug');
+  res.render('createGenre.pug', {username: req.session.username});
 });
 router.post('/genre/add/save',genreController.save);
 
@@ -123,14 +124,7 @@ router.get('/user/:username', function(req, res) {
         err
       });
     } else {
-      // UserXcommentXreview.find({ user: userBD }, function(err, userXcommentXreview) {
-      //   if (err) {
-      //     return res.render('user.pug');
-      //   } else {
-      //     res.render('user.pug', {taulaConjunta: userXcommentXreview, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture});
-      //   }
-      // })
-      res.render('user.pug', {username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
+      res.render('user.pug', {reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
     }
   })
 });
@@ -155,7 +149,7 @@ router.post('/user/edit/img', function(req, res, next){
       
       console.log('Succesfully');
     });
-    User.findOneAndUpdate({username: sess.username}, {profilePicture: newName + "." + files.profilePicture.mimetype.split("/")[1]}, function(err, user) {
+    User.model.findOneAndUpdate({username: sess.username}, {profilePicture: newName + "." + files.profilePicture.mimetype.split("/")[1]}, function(err, user) {
       user.save();
     });
     sess.profilePicture = newName + "." + files.profilePicture.mimetype.split("/")[1];

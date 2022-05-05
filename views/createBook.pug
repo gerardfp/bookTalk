@@ -4,7 +4,7 @@ block content
     link(rel='stylesheet' href='/css/bootstrap.min.css')
     //jQuery library
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
-    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
+    //- link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
     //JS & CSS library of MultiSelect plugin
     script(src="../js/jquery.multiselect.js")
     link(rel="stylesheet" href="../css/jquery.multiselect.css")
@@ -20,13 +20,21 @@ block content
           div.author
             label(for="bookName") Nombre del Autor:
             select(name="authors[]" multiple id="languageSelect")
+            div.cta__create
+              a(href="/author/add")
+                input(type="button" value="Crear Autor").newBook
           div.genre
             label(for="genreName") Genero:
             select(name="genres[]" multiple id="genreSelect")
-          button(type="submit").inputBook__new Enviar
+            div.cta__create
+              a(href="/genre/add")
+                input(type="button" value="Crear Genero").newBook
+          div.cta__send
+            button(type="submit").inputBook__new Enviar
     div.right
       div.genere
-      button.newReview Crea tu reseña
+      form(method="get" action="/review/add")
+        button(type="submit").newReview Crea tu reseña
   script.
 
     function searchGenres() {

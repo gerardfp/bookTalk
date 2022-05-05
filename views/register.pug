@@ -1,25 +1,22 @@
 extends header 
 block content
+    head 
+        - var errors0 = errors0;
+        - var errors1 = errors1;
+        - var errors2 = errors2;
+        - var errors3 = errors3;
+        - var errors4 = errors4;
     form(action="/user/signup/save" method="post").block
         h1 Register 
-        br
-        div()#errores
         input(type="text" name="username" placeholder="Nombre Usuario").input__login
-        br
-        br
+        p.error #{errors0}
         input(type="text" name="completeName" placeholder="Nombre completo").input__login
-        br
-        br
+        p.error #{errors1}
         input(type="date" name="birthDate" placeholder="Fecha de nacimiento").input__login
-        br
-        br
+        p.error #{errors2}
         input(type="mail" name="email" placeholder="email").input__login
-        br
-        br
+        p.error #{errors3}
         input(type="password" name="password" placeholder="Contraseña").input__login
-        br
-        br
-        input(type="password" name="password2" placeholder="Repite la contraseña").input__login
-        br
-        br
+        input(type="password" name="password2" placeholder="Repite la contraseña").input__login.input__login__c
+        p.error #{errors4}
         button(type="submit").block__button Register
