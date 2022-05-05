@@ -197,4 +197,11 @@ var edit = (req, res, next) => {
     
 };
 
-module.exports = {register, login, edit};
+var searchUsersForSearcher = async (req, res, next) => {
+    let userQuery = req.body.userInput;
+    let usersFound = await User.model.find({username: new RegExp(userQuery)});
+    res.json(usersFound);
+    return;
+}
+
+module.exports = {register, login, edit, searchUsersForSearcher};

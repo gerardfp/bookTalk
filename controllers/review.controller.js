@@ -35,3 +35,10 @@ exports.oneReview = async (req, res, next) => {
     console.log(req.theBook);
     next();
 }
+
+exports.searchReviewsForSearcher = async (req, res, next) => {
+    let userQuery = req.body.userInput;
+    let reviewsFound = await Review.model.find({reviewTitle: new RegExp(userQuery)});
+    res.json(reviewsFound);
+    return;
+}

@@ -56,3 +56,10 @@ exports.bookTitle  = async (req, res, next) => {
     res.json(resultQueryBooks);
     return;
 }
+
+exports.searchBooksForSearcher = async (req, res, next) => {
+    let userQuery = req.body.userInput;
+    let booksFound = await Book.find({bookName: new RegExp(userQuery)});
+    res.json(booksFound);
+    return;
+}

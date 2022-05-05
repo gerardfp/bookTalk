@@ -165,4 +165,12 @@ router.post('/user/edit/img', function(req, res, next){
   res.redirect('/user/edit');
 
 });
+
+//searcher routes
+router.post('/search/books',bookController.searchBooksForSearcher);
+router.post('/search/users',UserController.searchUsersForSearcher);
+router.post('/search/reviews',reviewController.searchReviewsForSearcher);
+router.get('/searcher/test', function(req,res){
+  res.render('searcherTest.pug');
+});
 module.exports = router;
