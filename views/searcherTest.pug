@@ -1,21 +1,19 @@
 html
   head
     title= "searcher"
-    link(rel="stylesheet" href="../css/jquery.multiselect.css")
+    link(rel="stylesheet" href="../css/searcherClasses.css")
   body
     h1 Buscador:
     form(autocomplete="off" action="/action_page.php")
         div(class="autocomplete" style="width:300px;")
-        input(id="myInput" type="text" name="myCountry" )
+            input(id="myInput" type="text" name="myCountry" )
         input(type="submit")
 script.
-    function autocomplete(inp, arr) {
-
-    }
-
     async function populateSearchResults(){
+        let result;
         if (document.getElementById("myInput").value.length > 2){
             let searchResults = new Array;
+            let searchResult =  new Array;
             let userInput = document.getElementById("myInput").value;
             const responseForBooks = await fetch("/search/books",
             {
@@ -51,30 +49,32 @@ script.
             //console.log(reviewData);
 
             //save all the result in a standard format
-            booksdata.forEach(function(entry) {
-                let bookObj = {id: entry._id, name: entry.bookName , type: "book"};
-                searchResults.push(bookObj);
+            booksdata.forEach(function(entry) {                
+                let bookObj = {id: entry._id, name: entry.bookName, colectionName: "book"};
+                searchResult.push(bookObj);
             });
             usersdata.forEach(function(entry) {
-                let userObj = {id: entry._id, name: entry.username, type: "user"};
-                searchResults.push(userObj);
+                let userObj = {id: entry._id, name: entry.username, colectionName: "user"};
+                searchResult.push(userObj);
             });
             reviewData.forEach(function(entry) {
-                let reviewObj = {id: entry._id, name: entry.reviewTitle, type: "review"};
-                searchResults.push(reviewObj);
+                let reviewObj = {id: entry._id, name: entry.reviewTitle, colectionName: "review"};
+                searchResult.push(reviewObj);
             });
-            return searchResults;
+            //console.log(searchResult);
+            return searchResult;
         }
     }    
     document.getElementById("myInput").addEventListener('keyup', async (e) => {
         let searchResults = await populateSearchResults();
+        console.log(searchResults);
         if (searchResults != undefined) {
             let arr = searchResults;
             let inp = document.getElementById("myInput");
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
             var currentFocus;
-            console.log(arr);
+            //console.log(arr);
             /*execute a function when someone writes in the text field:*/
             inp.addEventListener("input", function(e) {
                 var a, b, i, val = this.value;
@@ -89,24 +89,23 @@ script.
                 /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild(a);
                 /*for each item in the array...*/
-                console.log(arr.length);
                 for (i = 0; i < arr.length; i++) {
                     /*check if the item starts with the same letters as the text field value:*/
-                    console.log(arr[i].name.substr(0, val.length).toUpperCase() + "   " + val.toUpperCase());
+                    //console.log(arr[i].name.substr(0, val.length).toUpperCase() + "   " + val.toUpperCase());
                     if (val.toUpperCase() != undefined) {
                         /*create a DIV element for each matching element:*/
                         b = document.createElement("DIV");
-                        console.log("dins for");
                         /*make the matching letters bold:*/
                         b.innerHTML = "<strong>" + arr[i].name + "</strong>";
                         //b.innerHTML += arr[i].substr(val.length);
                         /*insert a input field that will hold the current array item's value:*/
-                        if (arr[i].type = "user") {
+                        //console.log(arr[i]);
+                        if (arr[i].colectionName == "user") {
                             b.innerHTML += "<input type='hidden' id='objId' value='" + arr[i].name + "'>";
-                            b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].type + "'>";
+                            b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].colectionName + "'>";
                         } else {
                             b.innerHTML += "<input type='hidden' id='objId' value='" + arr[i].id + "'>";
-                            b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].type + "'>";
+                            b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].colectionName + "'>";
                         }
                         /*execute a function when someone clicks on the item value (DIV element):*/
                         b.addEventListener("click", function(e) {

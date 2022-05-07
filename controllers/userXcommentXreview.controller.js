@@ -29,11 +29,13 @@ exports.getAllUserComments  = async (req, res, next) => {
     //li pases el username per la ruta
     console.log(req.params.username);
     let userFinded = await User.model.findOne({ username: req.params.username });
-    let listOfCommentedReviewsByUser = await UserXcommentXreview.model.find({userid : userFinded._id});
-    let commentsMadeByUser = new Array;
-    listOfCommentedReviewsByUser.forEach(element => {
-        commentsMadeByUser.push(element.comments);
-    });
-    req.commentsMadeByUser = commentsMadeByUser;
+    if (userFinded != undefined) {
+        let listOfCommentedReviewsByUser = await UserXcommentXreview.model.find({userid : userFinded._id});
+        let commentsMadeByUser = new Array;
+        listOfCommentedReviewsByUser.forEach(element => {
+            commentsMadeByUser.push(element.comments);
+        });
+        req.commentsMadeByUser = commentsMadeByUser;    
+    }
     next();
 }
