@@ -1,65 +1,75 @@
-html
+extends header 
+block content
   head
-    title= "book form"
     link(rel='stylesheet' href='/css/bootstrap.min.css')
     //jQuery library
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
-    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
+    //- link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet")
     //JS & CSS library of MultiSelect plugin
     script(src="../js/jquery.multiselect.js")
     link(rel="stylesheet" href="../css/jquery.multiselect.css")
+    link(rel="stylesheet" href="../css/style.css")
 
-  body()
-    form(action="/book/add/save", method="post")
-      label(for="bookName") Name:
-      input(type="text", name="bookName")
-      br
-      br
-      label(for="bookName") AuthorName:
-      select(name="authors[]" multiple id="languageSelect")
-      br
-      br
-      label(for="genreName") Genre:
-      select(name="genres[]" multiple id="genreSelect")
-      br
-      br
-      button(type="submit") Enviar
+  div.content
+    div.reviewBlock
+      form(action="/book/add/save", method="post")
+        div.new__book
+          div.nameBook
+            label(for="bookName") Titulo:
+            input(type="text", name="bookName").inputReview
+          div.author
+            label(for="bookName") Nombre del Autor:
+            select(name="authors[]" multiple id="languageSelect")
+            div.cta__create
+              a(href="/author/add")
+                input(type="button" value="Crear Autor").newBook
+          div.genre
+            label(for="genreName") Genero:
+            select(name="genres[]" multiple id="genreSelect")
+            div.cta__create
+              a(href="/genre/add")
+                input(type="button" value="Crear Genero").newBook
+          div.cta__send
+            button(type="submit").inputBook__new Enviar
+    div.right
+      div.genere
+      form(method="get" action="/review/add")
+        button(type="submit").newReview Crea tu reseña
+  script.
 
-script.
-
-  function searchGenres() {
-    let datalist = document.getElementById("genreSelect");
-    var listOfGenres = !{JSON.stringify(genreList)};
-    console.log(listOfGenres);
-    listOfGenres.forEach(function(entry) {
-      let opt = document.createElement("option");
-      opt.value = entry.name;
-      opt.innerHTML = entry.name;
-      datalist.appendChild(opt);
+    function searchGenres() {
+      let datalist = document.getElementById("genreSelect");
+      var listOfGenres = !{JSON.stringify(genreList)};
+      console.log(listOfGenres);
+      listOfGenres.forEach(function(entry) {
+        let opt = document.createElement("option");
+        opt.value = entry.name;
+        opt.innerHTML = entry.name;
+        datalist.appendChild(opt);
+      });
+      jQuery('#genreSelect').multiselect({
+        columns: 1,
+        placeholder: 'Select Genre',
+        search: true
+      });
+    }
+    
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      let datalist = document.getElementById("languageSelect");
+      var listOfAuthors = !{JSON.stringify(authorList)};
+      console.log(listOfAuthors);
+      listOfAuthors.forEach(function(entry) {
+        let opt = document.createElement("option");
+        opt.value = entry.completeName;
+        opt.innerHTML = entry.completeName;
+        datalist.appendChild(opt);
+      });
+      jQuery('#languageSelect').multiselect({
+        columns: 1,
+        placeholder: 'Select Author',
+        search: true
+      });
+      searchGenres();
     });
-    jQuery('#genreSelect').multiselect({
-      columns: 1,
-      placeholder: 'Select Genre',
-      search: true
-    });
-  }
-  
-  document.addEventListener("DOMContentLoaded", function(event) { 
-    let datalist = document.getElementById("languageSelect");
-    var listOfAuthors = !{JSON.stringify(authorList)};
-    console.log(listOfAuthors);
-    listOfAuthors.forEach(function(entry) {
-      let opt = document.createElement("option");
-      opt.value = entry.completeName;
-      opt.innerHTML = entry.completeName;
-      datalist.appendChild(opt);
-    });
-    jQuery('#languageSelect').multiselect({
-      columns: 1,
-      placeholder: 'Select Author',
-      search: true
-    });
-    searchGenres();
-  });
 
 

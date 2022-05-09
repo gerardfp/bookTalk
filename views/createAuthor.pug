@@ -1,11 +1,18 @@
 extends header 
 block content
-  form(action="/author/add/save", method="post")
-    label(for="authorName") Nombre Completo:
-    input(type="text", name="authorName")
-    br
-    br
-    label(for="wikipedialink") WikipediaLink:
-    input(type="text", name="wikipedialink")
-    br
-    input(type="submit", value="Enviar")
+  div.content
+    div.reviewBlock
+      form(action="/author/add/save", method="post")
+        div.new__author
+          div.nameBook
+            label(for="authorName") Nombre Completo:
+            input(type="text", name="authorName").inputAuthor
+          div.nameBook
+            label(for="wikipedialink") Link a la Wikipedia:
+            input(type="text", name="wikipedialink").inputAuthor
+          div.cta__send
+            input(type="submit", value="Enviar").inputAuthor__new
+    div.right
+      div.genere
+      form(method="get" action="/review/add")
+        button(type="submit").newReview Crea tu reseña
