@@ -50,14 +50,22 @@ exports.likeIt = async (req, res, next) => {
     let reviewToLike = await Review.model.findOne({_id: req.params.idReview});
 
     let likeArray = reviewToLike.likes;
-    
+    console.log("AAAAAAAAAAA");
+    console.log(userWhoWantsToLikeit);
     if (!likeArray.includes(userWhoWantsToLikeit) && userWhoWantsToLikeit != null) {
+        console.log("Adeu");
         likeArray.push(userWhoWantsToLikeit);
         console.log(userWhoWantsToLikeit);
+    } else if (likeArray.includes(userWhoWantsToLikeit) && userWhoWantsToLikeit != null) {
+        console.log("Hola");
+        let indexOfUser = likeArray.indexOf(userWhoWantsToLikeit);
+        likeArray.splice(indexOfUser);
         await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
     }
     res.redirect('back');
 }
+
+
 exports.numOfLikes = async (req, res, next) => {
     let review = await Review.model.findOne({_id: req.params.idReview});
     let numOflikes = review.likes.length;
