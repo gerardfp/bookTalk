@@ -87,8 +87,9 @@ router.get('/review/list', function(req,res){
 });
   //one review passar la review de la bd i el llibre
 router.get('/review/:idReview', reviewController.oneReview);
+router.get('/review/:idReview',userXcommentXreview.getAllReviewComments);
 router.get('/review/:idReview', function(req,res){
-  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook});
+  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview});
 });
   //comment part
 router.post('/review/comment/new',userXcommentXreview.saveCommentMadeByUserInReview);

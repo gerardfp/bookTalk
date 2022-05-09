@@ -22,7 +22,7 @@ exports.saveCommentMadeByUserInReview  = async (req, res, next) => {
         commentsArray.push(comment); 
         const res = await UserXcommentXreview.model.updateOne({ userid: userFinded._id, reviewid: reviewFinded._id }, { comments:commentsArray });
     }
-    res.redirect("/review/list");
+    res.redirect('back');
 }
 
 exports.getAllUserComments  = async (req, res, next) => {
@@ -36,6 +36,17 @@ exports.getAllUserComments  = async (req, res, next) => {
             commentsMadeByUser.push(element.comments);
         });
         req.commentsMadeByUser = commentsMadeByUser;    
+    }
+    next();
+}
+
+exports.getAllReviewComments  = async (req, res, next) => {
+    //li pases el username per la ruta
+    console.log(req.params.idReview);
+    let reviewFinded = await Review.model.findOne({ _id: req.params.idReview });
+    if (reviewFinded != undefined) {
+        let listOfCommentedReviewsByUser = await UserXcommentXreview.model.find({reviewid : reviewFinded._id});
+        req.commentsinReview = listOfCommentedReviewsByUser;    
     }
     next();
 }
