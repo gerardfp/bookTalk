@@ -7,7 +7,7 @@ var review = new Schema({
     reviewScore: Number,
     reviewText: String,
     bookImage: String, //route to file
-    likes: [User.schema],
+    likes: [String],
     bookId: String,
     username: String
 });
