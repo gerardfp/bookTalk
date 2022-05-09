@@ -11,14 +11,14 @@ exports.saveCommentMadeByUserInReview  = async (req, res, next) => {
 
     if (testSearch == undefined) {
         let commentsArray = new Array;
-        let comment = new Commentary.model({commentText: req.body.comment, numOfLikes: 0, timeStamp: Date.now()});
+        let comment = new Commentary.model({commentText: req.body.comment, likes: new Array, timeStamp: Date.now()});
         commentsArray.push(comment);
         let input = new UserXcommentXreview.model({userid: userFinded._id, reviewid: reviewFinded._id, comments:commentsArray});
         console.log(input);
         input.save();
     } else {
         let commentsArray = testSearch.comments;
-        let comment = new Commentary.model({commentText: req.body.comment, numOfLikes: 0, timeStamp: Date.now()});
+        let comment = new Commentary.model({commentText: req.body.comment, likes: new Array, timeStamp: Date.now()});
         commentsArray.push(comment); 
         const res = await UserXcommentXreview.model.updateOne({ userid: userFinded._id, reviewid: reviewFinded._id }, { comments:commentsArray });
     }

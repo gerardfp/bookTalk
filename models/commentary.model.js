@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./user.model');
 
 var commentary = new Schema({
     commentText: String,
-    numOfLikes: Number,
+    likes: [User.schema],
     timeStamp: Date
 });
 
