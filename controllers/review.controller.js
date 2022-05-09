@@ -1,12 +1,14 @@
 var Review = require('../models/review.model.js');
 var Book = require('../models/book.model.js');
+var User = require('../models/user.model.js');
 
 
 exports.save = async (req, res, next) => {
     let bookid = await Book.findOne({bookName: req.body.booktitle});
     let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.body.username});
     if (testSearchReview == undefined) {
-        let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: new Array, bookId: bookid._id, username: req.body.username});
+        let arrayLikes = new Array;
+        let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: arrayLikes, bookId: bookid._id, username: req.body.username});
         console.log(review);
         review.save();    
     }
@@ -40,5 +42,25 @@ exports.searchReviewsForSearcher = async (req, res, next) => {
     let userQuery = req.body.userInput;
     let reviewsFound = await Review.model.find({reviewTitle: new RegExp(userQuery)});
     res.json(reviewsFound);
+    return;
+}
+
+exports.likeIt = async (req, res, next) => {
+    let userWhoWantsToLikeit = await User.model.findOne({username: req.session.username});
+    let reviewToLike = await Review.model.findOne({_id: req.params.idReview});
+
+    let likeArray = reviewToLike.likes;
+    
+    if (!likeArray.includes(userWhoWantsToLikeit) && userWhoWantsToLikeit != null) {
+        likeArray.push(userWhoWantsToLikeit);
+        console.log(userWhoWantsToLikeit);
+        await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
+    }
+    res.redirect('back');
+}
+exports.numOfLikes = async (req, res, next) => {
+    let review = await Review.model.findOne({_id: req.params.idReview});
+    let numOflikes = review.likes.length;
+    res.json({"number":numOflikes});
     return;
 }

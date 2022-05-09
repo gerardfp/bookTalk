@@ -92,6 +92,9 @@ router.get('/review/:idReview', function(req,res){
 });
   //comment part
 router.post('/review/comment/new',userXcommentXreview.saveCommentMadeByUserInReview);
+router.get('/review/like/:idReview',reviewController.likeIt);
+router.get('/review/numberOflikes/:idReview',reviewController.numOfLikes);
+
 
 
 
