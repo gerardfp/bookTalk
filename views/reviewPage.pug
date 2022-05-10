@@ -104,9 +104,12 @@ block content
         window.location.href = "/review/like/"+reviewText._id;
       });
 
+      const div3 = document.createElement("div");
+      div3.classList.add("div3");
+      div3.appendChild(likeBtn);
+
       div2.appendChild(reviewContent);
       div2.appendChild(numberOfLikes);
-      div2.appendChild(likeBtn);
 
       divReview.appendChild(div1);
       if (reviewText.bookImage != "" && reviewText.bookImage != " " && reviewText.bookImage != null) {
@@ -128,13 +131,58 @@ block content
       //- numberOfLikes.appendChild(like);
 
       divReview.appendChild(div2);
+      divReview.appendChild(div3);
 
       document.getElementById("revId").value = reviewText._id;
     }
-    function getAllComments() {
+    async function getAllComments() {
       //reben comentaris fa falta ficar bonic i output al div de comentaris
       let comments = !{JSON.stringify(comments)};
+      let divComments = document.getElementById("comments");
       console.log(comments);
+
+      comments.forEach(async element => {
+        const diveachCommentsByOneUser = document.createElement("div");
+        let pUsername = document.createElement("p");
+
+        const fetchUsername = await fetch("/user/getUsername/" + element.userid, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+        }});
+        const username = await fetchUsername.json();
+
+        pUsername.innerHTML = username;
+        element.comments.forEach(async commentary => {
+          const divAComment = document.createElement("div");
+          let timeStamp = document.createElement("p");
+
+          let dateFormatDate = new Date (commentary.timeStamp);
+          console.log(dateFormatDate);
+          timeStamp.innerHTML = dateFormatDate.getUTCDate() + "/" + dateFormatDate.getMonth() + "/" + dateFormatDate.getFullYear()  + "  " + dateFormatDate.getHours() + ":" + dateFormatDate.getMinutes();
+          let commentBody = document.createElement("p");
+          commentBody.innerHTML = commentary.commentText;
+          divAComment.appendChild(pUsername);
+          divAComment.appendChild(timeStamp);
+          divAComment.appendChild(commentBody);
+
+          const likeBtn = document.createElement("button");
+          likeBtn.innerHTML = "Like";
+          likeBtn.addEventListener("click", function(e) {
+            window.location.href = "/review/comment/like/"+element._id+"/"+commentary._id;
+          });
+          divAComment.appendChild(likeBtn);
+
+          const numOfLikesNumber = commentary.likes.length;
+          let numOfLikeComment = document.createElement("p");
+          numOfLikeComment.innerHTML = numOfLikesNumber;
+          divAComment.appendChild(numOfLikeComment);
+
+
+          diveachCommentsByOneUser.appendChild(divAComment);
+        });
+        divComments.appendChild(diveachCommentsByOneUser);
+      });
     }
     createPage();
     getAllComments();

@@ -50,3 +50,28 @@ exports.getAllReviewComments  = async (req, res, next) => {
     }
     next();
 }
+
+exports.likeAComment  = async (req, res, next) => {
+    //li pases el username per la ruta
+    let idComentary = req.params.idComment;
+
+    let userWhoWantsToLikeit = await User.model.findOne({username: req.session.username});
+    let node = await UserXcommentXreview.model.findOne({_id : req.params.idCommentNode});
+
+    var comment = node.comments.filter(function(item) { return item._id == idComentary; });
+    let commentsArray = node.comments;
+    let username = userWhoWantsToLikeit.username;
+
+    if (!comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+        comment[0].likes.push(username);
+        commentsArray.splice(commentsArray.indexOf(comment[0]));
+        commentsArray.push(comment[0]);
+        await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
+    } else if (comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+        comment[0].likes.splice(comment[0].likes.indexOf(username));
+        commentsArray.splice(commentsArray.indexOf(comment[0]));
+        commentsArray.push(comment[0]);
+        await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
+    }
+    res.redirect('back');
+}

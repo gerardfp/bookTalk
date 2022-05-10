@@ -85,19 +85,19 @@ router.get('/review/list', reviewController.list);
 router.get('/review/list', function(req,res){
   res.render('listOfReviews.pug', {username: req.session.username, listOfReviews: req.allReviewList});
 });
-  //one review passar la review de la bd i el llibre
+//one review passar la review de la bd i el llibre
 router.get('/review/:idReview', reviewController.oneReview);
 router.get('/review/:idReview',userXcommentXreview.getAllReviewComments);
 router.get('/review/:idReview', function(req,res){
   res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview});
 });
-  //comment part
+
+//comment part
 router.post('/review/comment/new',userXcommentXreview.saveCommentMadeByUserInReview);
 router.get('/review/like/:idReview',reviewController.likeIt);
 router.get('/review/numberOflikes/:idReview',reviewController.numOfLikes);
 
-
-
+router.get('/review/comment/like/:idCommentNode/:idComment',userXcommentXreview.likeAComment);
 
 //Login
 router.get('/user/signin',function(req,res){
@@ -163,6 +163,8 @@ router.post('/user/edit/img', function(req, res, next){
   res.redirect('/user/edit');
 
 });
+router.get('/user/getUsername/:userId',UserController.getUsernameForComments);
+
 
 //searcher routes
 router.post('/search/books',bookController.searchBooksForSearcher);
