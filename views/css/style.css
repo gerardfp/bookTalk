@@ -884,3 +884,9 @@ body {
 .checkbox__text {
   margin-left: 5px;
 }
+
+
+/* comentarios */
+.comment {
+  background-color: var(--background-color);
+}
