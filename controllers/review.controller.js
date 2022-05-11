@@ -4,7 +4,7 @@ var User = require('../models/user.model.js');
 
 
 exports.save = async (req, res, next) => {
-    let bookid = await Book.findOne({bookName: req.body.booktitle});
+    let bookid = await Book.findOne({bookName: req.body.booktitle.toLowerCase()});
     let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.body.username});
     if (testSearchReview == undefined) {
         let arrayLikes = new Array;
@@ -48,18 +48,19 @@ exports.searchReviewsForSearcher = async (req, res, next) => {
 exports.likeIt = async (req, res, next) => {
     let userWhoWantsToLikeit = await User.model.findOne({username: req.session.username});
     let reviewToLike = await Review.model.findOne({_id: req.params.idReview});
-
-    let likeArray = reviewToLike.likes;
-    if (!likeArray.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
-        let likeArray = new Array;
-        let username = userWhoWantsToLikeit.username;
-        likeArray.push(username);
-        await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
-    } else if (likeArray.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
-        console.log("Hola");
-        let indexOfUser = likeArray.indexOf(userWhoWantsToLikeit.username);
-        likeArray.splice(indexOfUser);
-        await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
+    if (req.session.username != null) {
+        let likeArray = reviewToLike.likes;
+        if (!likeArray.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+            let likeArray = new Array;
+            let username = userWhoWantsToLikeit.username;
+            likeArray.push(username);
+            await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
+        } else if (likeArray.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+            console.log("Hola");
+            let indexOfUser = likeArray.indexOf(userWhoWantsToLikeit.username);
+            likeArray.splice(indexOfUser);
+            await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
+        }
     }
     res.redirect('back');
 }
