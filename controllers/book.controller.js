@@ -66,7 +66,9 @@ exports.searchBooksForSearcher = async (req, res, next) => {
 
 exports.searchBooksForGenre = async (req, res, next) => {
     let userQuery = req.body.genre;
-    let booksFound = await Book.find({genre: userQuery});
+    let genresUserWants = await Genre.model.find({name :userQuery}).select(['_id']);
+    let booksFound = await Book.find({genre: {$in: genresUserWants}});
+
     res.json(booksFound);
-    return;
+    //return;
 }

@@ -174,6 +174,7 @@ router.get('/user/getUsername/:userId',UserController.getUsernameForComments);
 
 //searcher routes
 router.post('/search/books',bookController.searchBooksForSearcher);
+router.post('/search/byGenres',bookController.searchBooksForGenre);
 router.post('/search/users',UserController.searchUsersForSearcher);
 router.post('/search/reviews',reviewController.searchReviewsForSearcher);
 router.get('/searcher/test', function(req,res){
