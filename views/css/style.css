@@ -833,7 +833,10 @@ body {
 
 /* Nuevo autor */
 .new__author {
-  padding: 18%;
+  padding-left: 18%;
+  padding-right: 18%;
+  padding-top: 17vh;
+  padding-bottom: 20vh;
   background-color: var(--review-color);
   border-radius: 10px 10px 10px 10px;
   height: 70%;
@@ -866,4 +869,18 @@ body {
 /* Nuevo Genero */
 .cta__sendGenre {
   text-align: end;
+}
+
+
+/* Ver generos */
+.checklist {
+  font-size: 20px;
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.checkbox__text {
+  margin-left: 5px;
 }

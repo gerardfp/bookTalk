@@ -18,3 +18,9 @@ exports.get = (req, res, next) => {
         next();
     });
 }
+
+exports.list = async (req, res, next) => {
+    req.allGenreList = await Genre.model.find();
+    console.log(req.allGenreList);
+    next();
+}

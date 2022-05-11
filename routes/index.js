@@ -34,9 +34,14 @@ router.use(session({
 
 //Home
 router.get('/', reviewController.list);
+router.get('/', genreController.list);
 router.get('/',function(req,res){
-  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList})
+  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList, listOfGenres: req.allGenreList})
 });
+
+router.get('/genre', function(req, res) {
+  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList, listOfGenres: req.allGenreList})
+})
 
 //Register
 router.get('/user/signup',function(req,res){
@@ -145,6 +150,7 @@ router.post('/user/edit/img', function(req, res, next){
     }
 
     let filePath = files.profilePicture.filepath;
+    console.log(filePath);
     var sess = req.session;
     let newName = sess.username;
 
