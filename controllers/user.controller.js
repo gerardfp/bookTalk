@@ -212,4 +212,12 @@ var searchUsersForSearcher = async (req, res, next) => {
     return;
 }
 
-module.exports = {register, login, edit, searchUsersForSearcher};
+var getUsernameForComments = async (req, res, next) => {
+    let userId = req.params.userId;
+    let user = await User.model.findOne({_id: userId});
+    console.log(user.username);
+    res.json(user.username);
+    return;
+}
+
+module.exports = {register, login, edit, searchUsersForSearcher, getUsernameForComments};

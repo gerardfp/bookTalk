@@ -4,7 +4,7 @@ const User = require('./user.model');
 
 var commentary = new Schema({
     commentText: String,
-    likes: [User.schema],
+    likes: [String],
     timeStamp: Date
 });
 

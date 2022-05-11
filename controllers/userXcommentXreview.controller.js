@@ -22,7 +22,7 @@ exports.saveCommentMadeByUserInReview  = async (req, res, next) => {
         commentsArray.push(comment); 
         const res = await UserXcommentXreview.model.updateOne({ userid: userFinded._id, reviewid: reviewFinded._id }, { comments:commentsArray });
     }
-    res.redirect("/review/list");
+    res.redirect('back');
 }
 
 exports.getAllUserComments  = async (req, res, next) => {
@@ -38,4 +38,40 @@ exports.getAllUserComments  = async (req, res, next) => {
         req.commentsMadeByUser = commentsMadeByUser;    
     }
     next();
+}
+
+exports.getAllReviewComments  = async (req, res, next) => {
+    //li pases el username per la ruta
+    console.log(req.params.idReview);
+    let reviewFinded = await Review.model.findOne({ _id: req.params.idReview });
+    if (reviewFinded != undefined) {
+        let listOfCommentedReviewsByUser = await UserXcommentXreview.model.find({reviewid : reviewFinded._id});
+        req.commentsinReview = listOfCommentedReviewsByUser;    
+    }
+    next();
+}
+
+exports.likeAComment  = async (req, res, next) => {
+    //li pases el username per la ruta
+    let idComentary = req.params.idComment;
+
+    let userWhoWantsToLikeit = await User.model.findOne({username: req.session.username});
+    let node = await UserXcommentXreview.model.findOne({_id : req.params.idCommentNode});
+
+    var comment = node.comments.filter(function(item) { return item._id == idComentary; });
+    let commentsArray = node.comments;
+    let username = userWhoWantsToLikeit.username;
+
+    if (!comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+        comment[0].likes.push(username);
+        commentsArray.splice(commentsArray.indexOf(comment[0]));
+        commentsArray.push(comment[0]);
+        await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
+    } else if (comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
+        comment[0].likes.splice(comment[0].likes.indexOf(username));
+        commentsArray.splice(commentsArray.indexOf(comment[0]));
+        commentsArray.push(comment[0]);
+        await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
+    }
+    res.redirect('back');
 }
