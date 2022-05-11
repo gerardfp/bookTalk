@@ -1,0 +1,23 @@
+extends header 
+block content
+    head 
+        - var listOfGenres = listOfGenres;
+        - var n = 0;
+    div.content
+        div.left
+            div(id="revContainer")
+            //- div.book 
+        div.right
+            div.genere
+                - for (n = 0; n < listOfGenres.length; n++) {
+                    label.checklist
+                        input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 
+                        span.checkbox__text #{listOfGenres[n].name}
+                - }
+            if (username != undefined) 
+                form(method="get" action="/review/add")
+                    button(type="submit").newReview Crea tu reseña
+
+
+        div(id="revContainer")
+

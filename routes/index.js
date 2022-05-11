@@ -150,19 +150,35 @@ router.post('/user/edit/img', function(req, res, next){
     var sess = req.session;
     let newName = sess.username;
 
+    let picture = sess.profilePicture.split("/");
+    console.log(picture[2]);
+
+    if (sess.profilePicture != null && sess.profilePicture != undefined && sess.profilePicture != "") {
+      fs.unlinkSync(app.filesPath + picture[2]);
+    }
+
+    User.model.findOneAndUpdate({username: sess.username}, {profilePicture: ''}, function(err, user) {
+      user.save();
+    });
+
     fs.rename(filePath,app.filesPath + newName + "." + files.profilePicture.mimetype.split("/")[1] , function(err) {
       if (err) throw err
-      
       console.log('Succesfully');
     });
     User.model.findOneAndUpdate({username: sess.username}, {profilePicture: newName + "." + files.profilePicture.mimetype.split("/")[1]}, function(err, user) {
       user.save();
     });
-    sess.profilePicture = newName + "." + files.profilePicture.mimetype.split("/")[1];
+
+    req.session.profilePicture = "/public/" + newName + "." + files.profilePicture.mimetype.split("/")[1];
+
+    console.log("AAAAA");
+    console.log(sess.profilePicture);
+    console.log("BBBBBBB");
+
+    res.redirect('/user/edit');
   });
   
 
-  res.redirect('/user/edit');
 
 });
 
