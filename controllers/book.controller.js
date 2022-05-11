@@ -63,3 +63,10 @@ exports.searchBooksForSearcher = async (req, res, next) => {
     res.json(booksFound);
     return;
 }
+
+exports.searchBooksForGenre = async (req, res, next) => {
+    let userQuery = req.body.genre;
+    let booksFound = await Book.find({genre: userQuery});
+    res.json(booksFound);
+    return;
+}
