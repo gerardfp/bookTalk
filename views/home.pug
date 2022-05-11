@@ -14,8 +14,10 @@ block content
                         input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 
                         span.checkbox__text #{listOfGenres[n].name}
                 - }
-            form(method="get" action="/review/add")
-                button(type="submit").newReview Crea tu reseña
+            if (username != undefined) 
+                form(method="get" action="/review/add")
+                    button(type="submit").newReview Crea tu reseña
+
 
         div(id="revContainer")
 

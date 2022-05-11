@@ -146,6 +146,7 @@ router.post('/user/edit/img', function(req, res, next){
     }
 
     let filePath = files.profilePicture.filepath;
+    console.log(filePath);
     var sess = req.session;
     let newName = sess.username;
 

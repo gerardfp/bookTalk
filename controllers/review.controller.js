@@ -6,9 +6,12 @@ exports.save = async (req, res, next) => {
     let bookid = await Book.findOne({bookName: req.body.booktitle});
     let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.body.username});
     if (testSearchReview == undefined) {
-        let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: new Array, bookId: bookid._id, username: req.body.username});
-        console.log(review);
-        review.save();    
+        if (req.session.username != undefined) {
+            let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: new Array, bookId: bookid._id, username: req.session.username});
+            console.log(review);
+            review.save();    
+        }
+        
     }
     res.redirect("/");
 }
