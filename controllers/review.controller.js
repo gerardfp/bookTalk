@@ -58,7 +58,7 @@ exports.likeIt = async (req, res, next) => {
         } else if (likeArray.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
             console.log("Hola");
             let indexOfUser = likeArray.indexOf(userWhoWantsToLikeit.username);
-            likeArray.splice(indexOfUser);
+            likeArray.splice(indexOfUser,1);
             await Review.model.updateOne({ _id: req.params.idReview }, { likes:likeArray });
         }
     }

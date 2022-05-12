@@ -1,0 +1,29 @@
+html
+  head
+    title= "search by genre results"
+  body
+    h1 search by genre results:
+    div(id="results")
+
+script.
+    function createPage(){
+        let referenceDiv = document.getElementById("results");
+        let listOfBooks = !{JSON.stringify(booksFound)};
+        console.log(listOfBooks);
+        listOfBooks.forEach(element => {
+            let divOfBook = document.createElement("div");
+            
+            let title = document.createElement("p");
+            title.innerHTML = element.bookName;
+            
+            const likeBtn = document.createElement("button");
+            likeBtn.innerHTML = "Pag del llibre";
+            likeBtn.addEventListener("click", function(e) {
+                window.location.href = "/book/"+element._id;
+            });
+            divOfBook.appendChild(likeBtn);
+            divOfBook.appendChild(title);
+            referenceDiv.appendChild(divOfBook);
+        });
+    }
+    createPage();

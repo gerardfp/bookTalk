@@ -9,7 +9,7 @@ block content
             //- div.book 
         div.right
             div.genere
-                form(action="/search/byGenres" method="POST") 
+                form(action="/filter/byGenres" method="POST") 
                     - for (n = 0; n < listOfGenres.length; n++) {
                         label.checklist
                             input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 

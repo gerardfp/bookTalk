@@ -4,7 +4,6 @@ const Genre = require('../models/genre.model');
 
 
 exports.save = async (req, res, next) => { 
-
     //substituir aquesta part per foreach, per les multiples consultes
     //get author name and search it to grab the model
     let getAuthor = req.body.authors;    
@@ -66,9 +65,18 @@ exports.searchBooksForSearcher = async (req, res, next) => {
 
 exports.searchBooksForGenre = async (req, res, next) => {
     let userQuery = req.body.genre;
-    let genresUserWants = await Genre.model.find({name :userQuery}).select(['_id']);
-    let booksFound = await Book.find({genre: {$in: genresUserWants}});
+    let genresUserWants = await Genre.model.find({name :userQuery}).select(["name", '-_id']);
+    let listOfGenres = new Array;
+    genresUserWants.forEach(element => {
+        listOfGenres.push(element.name);
+    });
+    let listOfBooksFound = await Book.find({genre: {$elemMatch: {name:  {$in: listOfGenres}}}});
+    res.render('searchResult.pug',{booksFound: listOfBooksFound});
+}
 
-    res.json(booksFound);
-    //return;
+exports.aBook = async (req, res, next) => {
+    let booksFound = await Book.findOne({_id:req.params.idBook });
+    req.booksFound = booksFound;
+    console.log("AAAAAAAAAAAAAAAAAa");
+    next();
 }
