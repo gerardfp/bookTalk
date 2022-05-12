@@ -133,7 +133,7 @@ router.get('/user/:username', function(req, res) {
         err
       });
     } else {
-      res.render('user.pug', {reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
+      res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
     }
   })
 });
@@ -195,4 +195,11 @@ router.post('/search/reviews',reviewController.searchReviewsForSearcher);
 router.get('/searcher/test', function(req,res){
   res.render('searcherTest.pug');
 });
+
+
+//Favoritos
+router.get('/favorites', function(req,res){
+  res.render('favoritos.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, biography: req.session.biography, profilePicture: req.session.profilePicture});
+});
+
 module.exports = router;
