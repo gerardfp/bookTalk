@@ -21,7 +21,7 @@ block content
                 div.biography
                     p #{biography2}
             div(id="reviews")
-            p #{commentsMadeByUser}
+            //- p #{commentsMadeByUser}
             div(id="idReviewContainer")
         div.right
             div.genere
@@ -58,6 +58,9 @@ block content
                 const info = document.createElement("div");
                 info.classList.add("info");
 
+                const ah4 = document.createElement("a");
+                ah4.classList.add("titleToReview");
+                ah4.href = "/review/" + review[i]._id;
                 const titleReviewUser = document.createElement("h4");
                 titleReviewUser.classList.add("titleReviewUser");
                 titleReviewUser.innerHTML = review[i].reviewTitle;
@@ -69,7 +72,8 @@ block content
                 const p = document.createElement("p");
                 p.innerHTML = review[i].reviewText;
 
-                info.appendChild(titleReviewUser);
+                ah4.appendChild(titleReviewUser)
+                info.appendChild(ah4);
                 info.appendChild(userName);
                 info.appendChild(p);
 
