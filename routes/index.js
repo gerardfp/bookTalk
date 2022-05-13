@@ -137,7 +137,7 @@ router.get('/user/:username', function(req, res) {
         err
       });
     } else {
-      res.render('user.pug', {reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
+      res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
     }
   })
 });
@@ -205,5 +205,12 @@ router.get('/filter/byGenres', function(req,res){
   res.render('searchResult.pug',{booksFound: listOfBooksFound});
 });
 
+
+//Favoritos
+router.get('/favorites', reviewController.list);
+router.get('/favorites', genreController.list);
+router.get('/favorites', function(req,res){
+  res.render('favoritos.pug', {username: req.session.username, listOfGenres: req.allGenreList, listOfReviews: req.allReviewList});
+});
 
 module.exports = router;

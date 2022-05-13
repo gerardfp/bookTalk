@@ -309,7 +309,6 @@ body {
   width: 100%;
   color: var(--background-color);
   margin: 0;
-
 }
 
 .container_ {
@@ -576,6 +575,13 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 85% 15%);
   margin-bottom: 20px;
+  margin-right: 40px;
+}
+
+.div3 {
+  display: grid;
+  grid-template-columns: repeat(2, 80% 20%);
+  text-align: end;
 }
 
 .buttonReview {
@@ -654,7 +660,9 @@ body {
   margin-top: 25px;
   border-radius: 10px 10px 10px 10px;
   padding: 15px;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(2, 80% 20%);
+  flex-wrap: wrap;
 }
 
 .titleReviewUser {
@@ -672,6 +680,12 @@ body {
 
 .like {
   text-align: end;
+}
+
+.divLike {
+  display: grid;
+  margin-top: 40%;
+  grid-template-columns: repeat(2, 80% 20%);
 }
 
 
@@ -889,4 +903,31 @@ body {
 /* comentarios */
 .comment {
   background-color: var(--background-color);
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.div_1 {
+  display: grid;
+  grid-template-columns: repeat(2, 80% 20%);
+  margin-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.div_2 {
+  display: grid;
+  grid-template-columns: repeat(2, 85% 15%);
+  padding-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 30px;
+}
+
+.div_3 {
+  display: grid;
+  grid-template-columns: repeat(2, 80% 20%);
+  text-align: end;
 }
