@@ -48,7 +48,7 @@ exports.filterList  = async (req, res, next) => {
 }
 
 exports.bookTitle  = async (req, res, next) => {
-    let userInput = req.body.idOfBook.toLowerCase();
+    let userInput = req.body.idOfBook;
     console.log(userInput);
     let resultQueryBooks = await Book.findOne({ _id: userInput });
     console.log(resultQueryBooks);
