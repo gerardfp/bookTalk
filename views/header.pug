@@ -128,24 +128,18 @@ html(lang="es")
               b.innerHTML = "<strong>" + arr[i].name + "</strong>";
               //b.innerHTML += arr[i].substr(val.length);
               /*insert a input field that will hold the current array item's value:*/
-              //console.log(arr[i]);
+              let currentObject = arr[i];
               if (arr[i].colectionName == "user") {
-                b.innerHTML += "<input type='hidden' id='objId' value='" + arr[i].name + "'>";
-                b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].colectionName + "'>";
+                  b.addEventListener("click", (event, objType = currentObject.colectionName, objId = currentObject.name) => {
+                    window.location.href = "/"+objType+"/"+objId;
+                    closeAllLists();
+                  },false);
               } else {
-                b.innerHTML += "<input type='hidden' id='objId' value='" + arr[i].id + "'>";
-                b.innerHTML += "<input type='hidden' id='objType' value='" + arr[i].colectionName + "'>";
+                  b.addEventListener("click", (event, objType = currentObject.colectionName, objId = currentObject.id) => {
+                    window.location.href = "/"+objType+"/"+objId;
+                    closeAllLists();
+                  });
               }
-              /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-                /*insert the value for the autocomplete text field:*/
-                //inp.value = this.getElementsByTagName("input")[0].value;
-                document.getElementById("objId").value;
-                window.location.href = "/"+document.getElementById("objType").value+"/"+document.getElementById("objId").value;
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-                closeAllLists();
-              });
               a.appendChild(b);
             }
           }

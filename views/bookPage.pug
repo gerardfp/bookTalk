@@ -41,15 +41,13 @@ block content
           reviewTitle.innerHTML = element.reviewTitle;
           reviewTitle.value = element._id;
           reviewTitle.id = "reviewTag";
-          reviewTitle.setAttribute("onclick", () => {location.href = "/review/" + element._id}); 
+          reviewTitle.addEventListener("click", (event, id = element._id) => {window.location.href = "/review/" + id}); 
 
           const user = document.createElement("h3");
           user.id = "userTag"
           user.innerHTML = element.username;
           user.value = element.username;
-          user.addEventListener("click", function(e) {
-            window.location.href = "/user/"+document.getElementById("userTag").value;
-          });
+          user.addEventListener("click", (event, name = element.username) => {window.location.href = "/user/" + name});
 
           divForAReview.appendChild(reviewTitle);
           divForAReview.appendChild(user);
