@@ -62,9 +62,13 @@ router.get('/book/list/alll', function(req,res){
   res.render('listOfBooks.pug', {listOfBooks: req.allBooksList});
 });
 
+router.get('/book/:idBook',bookController.aBook);
+router.get('/book/:idBook', function(req,res){
+  res.render('bookPage.pug', {theBook: req.booksFound});
+});
+
 router.post('/book/list/query',bookController.filterList);
 router.post('/book/list/queryByTitle',bookController.bookTitle);
-
 
 //author
 router.get('/author/add',function(req,res){
@@ -195,4 +199,11 @@ router.post('/search/reviews',reviewController.searchReviewsForSearcher);
 router.get('/searcher/test', function(req,res){
   res.render('searcherTest.pug');
 });
+
+router.post('/filter/byGenres',bookController.searchBooksForGenre);
+router.get('/filter/byGenres', function(req,res){
+  res.render('searchResult.pug',{booksFound: listOfBooksFound});
+});
+
+
 module.exports = router;

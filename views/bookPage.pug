@@ -1,0 +1,21 @@
+html
+  head
+    title= "a book"
+  body
+    h1 search by genre results:
+    div(id="book")
+
+script.
+    function createPage(){
+        let referenceDiv = document.getElementById("book");
+        let theBook = !{JSON.stringify(theBook)};
+
+        let divOfBook = document.createElement("div");
+        
+        let title = document.createElement("p");
+        title.innerHTML = theBook.bookName;
+        
+        divOfBook.appendChild(title);
+        referenceDiv.appendChild(divOfBook);
+    }
+    createPage();
