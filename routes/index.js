@@ -128,6 +128,7 @@ router.get('/user/edit',function(req,res){
 //User
 //user page (comments remain to be done)
 router.get('/user/:username',reviewController.listMadeByUser);
+router.get('/user/:username',genreController.list);
 router.get('/user/:username',userXcommentXreview.getAllUserComments);
 router.get('/user/:username', function(req, res) {
   let username = req.params.username;
@@ -139,7 +140,7 @@ router.get('/user/:username', function(req, res) {
         err
       });
     } else {
-      res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture})
+      res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture, listOfGenres:req.allGenreList})
     }
   })
 });

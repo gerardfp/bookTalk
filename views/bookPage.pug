@@ -1,17 +1,21 @@
 extends header 
 block content
   head
-    - var username = username;
   div.content
     div.left
       div.post
         div(id="book").book
+        h3 Reviews:
         div(id="reviews")
   script.
+      function addUrl(username){
+        var t = document.getElementById("userTag");
+        window.location.href = "/user/" + username;
+      }
       function createPage(){
         let theBook = !{JSON.stringify(theBook)};
         let theReviews = !{JSON.stringify(theReviews)};
-
+        let divReviews = document.getElementById("reviews");
 
         let divBook = document.getElementById("book");
         const bookTitle = document.createElement("h4");
@@ -30,5 +34,26 @@ block content
         divBook.appendChild(bookWriter);
         divBook.appendChild(bookGenre);
         divBook.appendChild(bookScore);
+
+        theReviews.forEach(element => {
+          const divForAReview = document.createElement("div");
+          const reviewTitle = document.createElement("h4");
+          reviewTitle.innerHTML = element.reviewTitle;
+          reviewTitle.value = element._id;
+          reviewTitle.id = "reviewTag";
+          reviewTitle.setAttribute("onclick", () => {location.href = "/review/" + element._id}); 
+
+          const user = document.createElement("h3");
+          user.id = "userTag"
+          user.innerHTML = element.username;
+          user.value = element.username;
+          user.addEventListener("click", function(e) {
+            window.location.href = "/user/"+document.getElementById("userTag").value;
+          });
+
+          divForAReview.appendChild(reviewTitle);
+          divForAReview.appendChild(user);
+          divReviews.appendChild(divForAReview);
+        });
       }
       createPage();

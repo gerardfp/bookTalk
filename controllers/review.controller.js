@@ -5,10 +5,10 @@ var User = require('../models/user.model.js');
 
 exports.save = async (req, res, next) => {
     let bookid = await Book.findOne({bookName: req.body.booktitle.toLowerCase()});
-    let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.body.username});
+    let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.session.username});
     if (testSearchReview == undefined) {
         let arrayLikes = new Array;
-        let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: arrayLikes, bookId: bookid._id, username: req.body.username});
+        let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: arrayLikes, bookId: bookid._id, username: req.session.username});
         console.log(review);
         review.save();    
     }
