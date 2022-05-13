@@ -17,6 +17,7 @@ const bookController = require('../controllers/book.controller.js');
 const genreController = require('../controllers/genre.controller.js');
 const reviewController = require('../controllers/review.controller.js');
 const userXcommentXreview = require('../controllers/userXcommentXreview.controller');
+const favouritesController = require('../controllers/favourites.controller');
 
 
 //Middleware para mostrar datos del request
@@ -210,10 +211,12 @@ router.get('/filter/byGenres/result', function(req,res){
 
 
 //Favoritos
-router.get('/favorites', reviewController.list);
+router.get('/favorites', favouritesController.getFavouritesByUser);
 router.get('/favorites', genreController.list);
 router.get('/favorites', function(req,res){
-  res.render('favoritos.pug', {username: req.session.username, listOfGenres: req.allGenreList, listOfReviews: req.allReviewList});
+  res.render('favoritos.pug', {username: req.session.username, listOfGenres: req.allGenreList, listFavouritesOfUser: req.listFavouritesOfUser});
 });
+
+router.get('/favorites/add/:idBook', favouritesController.addFavouriteOrRemove);
 
 module.exports = router;
