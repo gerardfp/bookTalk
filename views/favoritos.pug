@@ -6,14 +6,15 @@ block content
     div.content
         div.left
             div(id="revContainer")
-            //- div.book 
         div.right
             div.genere
+                form(action="/filter/byGenres" method="POST") 
                 - for (n = 0; n < listOfGenres.length; n++) {
                     label.checklist
                         input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 
                         span.checkbox__text #{listOfGenres[n].name}
                 - }
+                input(type="submit" value="Buscar")
             if (username != undefined) 
                 form(method="get" action="/review/add")
                     button(type="submit").newReview Crea tu reseña

@@ -63,8 +63,9 @@ router.get('/book/list/alll', function(req,res){
 });
 
 router.get('/book/:idBook',bookController.aBook);
+router.get('/book/:idBook',reviewController.listMadeOfBook);
 router.get('/book/:idBook', function(req,res){
-  res.render('bookPage.pug', {theBook: req.booksFound});
+  res.render('bookPage.pug', {theBook: req.booksFound, theReviews: req.allReviewList});
 });
 
 router.post('/book/list/query',bookController.filterList);
@@ -97,8 +98,9 @@ router.get('/review/list', function(req,res){
 //one review passar la review de la bd i el llibre
 router.get('/review/:idReview', reviewController.oneReview);
 router.get('/review/:idReview',userXcommentXreview.getAllReviewComments);
+router.get('/review/:idReview',genreController.list);
 router.get('/review/:idReview', function(req,res){
-  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview});
+  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview,listOfGenres: req.allGenreList});
 });
 
 //comment part
@@ -201,8 +203,8 @@ router.get('/searcher/test', function(req,res){
 });
 
 router.post('/filter/byGenres',bookController.searchBooksForGenre);
-router.get('/filter/byGenres', function(req,res){
-  res.render('searchResult.pug',{booksFound: listOfBooksFound});
+router.get('/filter/byGenres/result', function(req,res){
+  res.render('searchResult.pug',{booksFound: req.session.listOfBooks});
 });
 
 

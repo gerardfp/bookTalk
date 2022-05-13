@@ -1,21 +1,34 @@
-html
+extends header 
+block content
   head
-    title= "a book"
-  body
-    h1 search by genre results:
-    div(id="book")
-
-script.
-    function createPage(){
-        let referenceDiv = document.getElementById("book");
+    - var username = username;
+  div.content
+    div.left
+      div.post
+        div(id="book").book
+        div(id="reviews")
+  script.
+      function createPage(){
         let theBook = !{JSON.stringify(theBook)};
+        let theReviews = !{JSON.stringify(theReviews)};
 
-        let divOfBook = document.createElement("div");
-        
-        let title = document.createElement("p");
-        title.innerHTML = theBook.bookName;
-        
-        divOfBook.appendChild(title);
-        referenceDiv.appendChild(divOfBook);
-    }
-    createPage();
+
+        let divBook = document.getElementById("book");
+        const bookTitle = document.createElement("h4");
+        bookTitle.innerHTML = theBook.bookName;
+
+        const bookScore = document.createElement("p");
+        bookScore.innerHTML = theBook.averageReviewScore + " / 5";
+
+        const bookWriter = document.createElement("p");
+        bookWriter.innerHTML = "Escritor: " + theBook.author[0].completeName;
+
+        const bookGenre = document.createElement("p");
+        bookGenre.innerHTML = "Genero: " + theBook.genre[0].name;
+
+        divBook.appendChild(bookTitle);
+        divBook.appendChild(bookWriter);
+        divBook.appendChild(bookGenre);
+        divBook.appendChild(bookScore);
+      }
+      createPage();

@@ -30,6 +30,12 @@ exports.list = async (req, res, next) => {
     next();
 }
 
+exports.listMadeOfBook = async (req, res, next) => {
+    console.log(req.booksFound._id);
+    req.allReviewList = await Review.model.find({bookId: req.booksFound._id });
+    next();
+}
+
 exports.oneReview = async (req, res, next) => {
     req.theReview = await Review.model.findOne({_id:req.params.idReview});
     req.theBook = await Book.findOne({ _id: req.theReview.bookId });
