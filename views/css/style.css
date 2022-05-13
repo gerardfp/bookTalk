@@ -534,10 +534,23 @@ body {
   border-radius: 10px 10px 10px 10px;
   margin-bottom: 15px;
   padding-top: 20px;
+  padding-left: 20px;
   padding-bottom: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   text-align: center;
+}
+
+.inputReview__new2 {
+  background-color: var(--book-color);
+  height: 40px;
+  text-align: center;
+  border-radius: 6px;
+  color: var(--header-color);
+  margin-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .book__review {
@@ -599,6 +612,7 @@ body {
 .genere {
   background-color: var(--genre--color);
   height: 50%;
+  padding-left: 20px;
   border-radius: 5px;
 }
 
@@ -697,6 +711,19 @@ body {
   width: 100%;
 }
 
+.book3 {
+  background-color: var(--book-color);
+  border-radius: 10px 10px 0px 0px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
 .review {
   background-color: var(--review-color);
   border-radius: 10px 10px 10px 10px;
@@ -766,11 +793,11 @@ body {
 }
 
 .inputReview__new {
+  background-color: var(--book-color);
   width: 30%;
   height: 40px;
   text-align: center;
   border-radius: 6px;
-  background-color: var(--book-color);
   color: var(--header-color);
   margin-top: 10px;
 }
@@ -930,4 +957,33 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 80% 20%);
   text-align: end;
+}
+
+
+/* Favoritos */
+.book2 {
+  background-color: var(--book-color);
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.starFav {
+  text-decoration: none;
+  color: var(--header-color);
+}
+
+.starFav:hover {
+  color: var(--review-color);
+}
+
+.starFav2 {
+  height: 30px;
+  width: 30px;
 }
