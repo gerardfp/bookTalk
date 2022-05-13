@@ -73,7 +73,7 @@ exports.searchBooksForGenre = async (req, res, next) => {
     let listOfBooksFound = await Book.find({genre: {$elemMatch: {name:  {$in: listOfGenres}}}});
     req.session.listOfBooks = listOfBooksFound;
     console.log(req.session.listOfBooks);
-    res.redirect('/filter/byGenres/result');
+    res.redirect('/byGenres/result');
 }
 
 exports.aBook = async (req, res, next) => {

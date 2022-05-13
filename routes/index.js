@@ -204,7 +204,7 @@ router.get('/searcher/test', function(req,res){
 });
 
 router.post('/filter/byGenres',bookController.searchBooksForGenre);
-router.get('/filter/byGenres/result', function(req,res){
+router.get('/byGenres/result', function(req,res){
   res.render('searchResult.pug',{booksFound: req.session.listOfBooks});
 });
 

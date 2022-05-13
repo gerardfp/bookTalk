@@ -4,10 +4,12 @@ body {
 }
 .autocomplete {
   /*the container must be positioned relative:*/
-  position: relative;
+  position: absolute;
+  top: 2vh;
+  left: 40%;
   display: inline-block;
 }
-input {
+/* input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
   padding: 10px;
@@ -16,7 +18,7 @@ input {
 input[type=text] {
   background-color: #f1f1f1;
   width: 100%;
-}
+} */
 /* input[type=submit] {
   background-color: #69a297;
   color: #fff;
@@ -26,7 +28,7 @@ input[type=text] {
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
-  z-index: 99;
+  z-index: 0;
   /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
