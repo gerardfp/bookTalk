@@ -198,8 +198,10 @@ router.get('/searcher/test', function(req,res){
 
 
 //Favoritos
+router.get('/favorites', reviewController.list);
+router.get('/favorites', genreController.list);
 router.get('/favorites', function(req,res){
-  res.render('favoritos.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, biography: req.session.biography, profilePicture: req.session.profilePicture});
+  res.render('favoritos.pug', {username: req.session.username, listOfGenres: req.allGenreList, listOfReviews: req.allReviewList});
 });
 
 module.exports = router;
