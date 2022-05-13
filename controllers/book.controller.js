@@ -71,12 +71,11 @@ exports.searchBooksForGenre = async (req, res, next) => {
         listOfGenres.push(element.name);
     });
     let listOfBooksFound = await Book.find({genre: {$elemMatch: {name:  {$in: listOfGenres}}}});
-    res.render('searchResult.pug',{booksFound: listOfBooksFound});
+    next();
 }
 
 exports.aBook = async (req, res, next) => {
     let booksFound = await Book.findOne({_id:req.params.idBook });
     req.booksFound = booksFound;
-    console.log("AAAAAAAAAAAAAAAAAa");
     next();
 }

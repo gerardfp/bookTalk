@@ -185,5 +185,9 @@ router.get('/searcher/test', function(req,res){
 });
 
 router.post('/filter/byGenres',bookController.searchBooksForGenre);
+router.get('/filter/byGenres', function(req,res){
+  res.render('searchResult.pug',{booksFound: listOfBooksFound});
+});
+
 
 module.exports = router;
