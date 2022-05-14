@@ -1,12 +1,25 @@
 extends header 
 block content
   head
+    - var listOfGenres = listOfGenres;
   div.content
     div.left
-      div.post
-        div(id="book").book
-        h3 Reviews:
+      div.book4
+        div(id="book").bookContent
+          //- h3 Reviews:
         div(id="reviews")
+    div.right
+      div.genere
+        form(action="/filter/byGenres" method="POST") 
+          - for (n = 0; n < listOfGenres.length; n++) {
+            label.checklist
+              input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 
+              span.checkbox__text #{listOfGenres[n].name}
+          - }
+          input(type="submit" value="Buscar").inputReview__new2
+      if (username != undefined) 
+        form(method="get" action="/review/add")
+          button(type="submit").newReview Crea tu reseña
   script.
       function addUrl(username){
         var t = document.getElementById("userTag");
@@ -37,13 +50,16 @@ block content
 
         theReviews.forEach(element => {
           const divForAReview = document.createElement("div");
+          divForAReview.classList.add("reviewContent");
           const reviewTitle = document.createElement("h4");
+          reviewTitle.classList.add("bookUser");
           reviewTitle.innerHTML = element.reviewTitle;
           reviewTitle.value = element._id;
           reviewTitle.id = "reviewTag";
           reviewTitle.addEventListener("click", (event, id = element._id) => {window.location.href = "/review/" + id}); 
 
-          const user = document.createElement("h3");
+          const user = document.createElement("h4");
+          user.classList.add("bookUser");
           user.id = "userTag"
           user.innerHTML = element.username;
           user.value = element.username;

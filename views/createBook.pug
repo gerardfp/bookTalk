@@ -10,6 +10,8 @@ block content
     link(rel="stylesheet" href="../css/jquery.multiselect.css")
     link(rel="stylesheet" href="../css/style.css")
 
+    - var listOfGenres = listOfGenres;
+
   div.content
     div.reviewBlock
       form(action="/book/add/save", method="post")
@@ -33,6 +35,13 @@ block content
             button(type="submit").inputBook__new Enviar
     div.right
       div.genere
+        form(action="/filter/byGenres" method="POST") 
+          - for (n = 0; n < listOfGenres.length; n++) {
+            label.checklist
+              input(type="checkbox" name="genre" id=listOfGenres[n].name value=listOfGenres[n].name) 
+              span.checkbox__text #{listOfGenres[n].name}
+          - }
+          input(type="submit" value="Buscar").inputReview__new2
       form(method="get" action="/review/add")
         button(type="submit").newReview Crea tu reseña
   script.

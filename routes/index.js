@@ -52,8 +52,9 @@ router.get('/user/signup',function(req,res){
 //book
 router.get('/book/add',genreController.get);
 router.get('/book/add',authorController.get);
+router.get('/book/add',genreController.list);
 router.get('/book/add',function(req,res){
-  res.render('createBook.pug',{username: req.session.username, authorList: req.authors, genreList: req.genres});
+  res.render('createBook.pug',{username: req.session.username, authorList: req.authors, genreList: req.genres, listOfGenres: req.allGenreList});
 });
 router.post('/book/add/save',bookController.save);
 
@@ -65,31 +66,35 @@ router.get('/book/list/alll', function(req,res){
 
 router.get('/book/:idBook',bookController.aBook);
 router.get('/book/:idBook',reviewController.listMadeOfBook);
+router.get('/book/:idBook',genreController.list);
 router.get('/book/:idBook', function(req,res){
-  res.render('bookPage.pug', {theBook: req.booksFound, theReviews: req.allReviewList});
+  res.render('bookPage.pug', {username: req.session.username, theBook: req.booksFound, theReviews: req.allReviewList, listOfGenres: req.allGenreList});
 });
 
 router.post('/book/list/query',bookController.filterList);
 router.post('/book/list/queryByTitle',bookController.bookTitle);
 
 //author
+router.get('/author/add',genreController.list);
 router.get('/author/add',function(req,res){
-  res.render('createAuthor.pug', {username: req.session.username});
+  res.render('createAuthor.pug', {username: req.session.username, listOfGenres: req.allGenreList});
 });
 router.post('/author/add/save',authorController.save);
 router.post('/author/search',authorController.get);
 
 
 //genre
+router.get('/genre/add',genreController.list);
 router.get('/genre/add',function(req,res){
-  res.render('createGenre.pug', {username: req.session.username});
+  res.render('createGenre.pug', {username: req.session.username, listOfGenres: req.allGenreList});
 });
 router.post('/genre/add/save',genreController.save);
 
 
 //review
+router.get('/review/add',genreController.list);
 router.get('/review/add',function(req,res){
-  res.render('createReview.pug', {username: req.session.username});
+  res.render('createReview.pug', {username: req.session.username, listOfGenres: req.allGenreList});
 });
 router.post('/review/add/save',reviewController.save);
 router.get('/review/list', reviewController.list);
@@ -164,10 +169,10 @@ router.post('/user/edit/img', function(req, res, next){
 
     let picture = sess.profilePicture.split("/");
     console.log(picture[2]);
-
-    if (sess.profilePicture != null && sess.profilePicture != undefined && sess.profilePicture != "") {
-      fs.unlinkSync(app.filesPath + picture[2]);
-    }
+    console.log(sess.profilePicture);
+    // if (sess.profilePicture != null && sess.profilePicture != undefined && sess.profilePicture != ' ' && sess.profilePicture != "") {
+    //   fs.unlinkSync(app.filesPath + picture[2]);
+    // }
 
     User.model.findOneAndUpdate({username: sess.username}, {profilePicture: ''}, function(err, user) {
       user.save();
@@ -205,8 +210,9 @@ router.get('/searcher/test', function(req,res){
 });
 
 router.post('/filter/byGenres',bookController.searchBooksForGenre);
+router.get('/byGenres/result', genreController.list);
 router.get('/byGenres/result', function(req,res){
-  res.render('searchResult.pug',{booksFound: req.session.listOfBooks});
+  res.render('searchResult.pug',{booksFound: req.session.listOfBooks, listOfGenres: req.allGenreList, username: req.session.username});
 });
 
 
