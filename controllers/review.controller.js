@@ -6,9 +6,17 @@ var User = require('../models/user.model.js');
 exports.save = async (req, res, next) => {
     let bookid = await Book.findOne({bookName: req.body.booktitle.toLowerCase()});
     let testSearchReview = await Review.model.findOne({bookId: bookid._id, username: req.session.username});
+    let reviewsMadeOfThatBoook = await Review.model.find({bookId: bookid._id});
     if (testSearchReview == undefined) {
         let arrayLikes = new Array;
         let review = new Review.model({reviewTitle: req.body.reviewTitle.toLowerCase(), reviewScore: req.body.score , reviewText: req.body.review , bookImage: "", likes: arrayLikes, bookId: bookid._id, username: req.session.username});
+        let allScoreSum = 0;
+        reviewsMadeOfThatBoook.forEach(element => {
+            allScoreSum = parseInt(allScoreSum) + parseInt(element.reviewScore);
+        });
+        allScoreSum = allScoreSum + parseInt(req.body.score);
+        let average = allScoreSum / (reviewsMadeOfThatBoook.length + 1);
+        await Book.updateOne({ _id: bookid._id }, { averageReviewScore: average });
         console.log(review);
         review.save();    
     }
