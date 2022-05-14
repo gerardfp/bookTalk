@@ -63,13 +63,15 @@ exports.likeAComment  = async (req, res, next) => {
         let username = userWhoWantsToLikeit.username;
         if (!comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
             comment[0].likes.push(username);
+            let previousPosition = commentsArray.indexOf(comment[0]);
             commentsArray.splice(commentsArray.indexOf(comment[0]),1);
-            commentsArray.push(comment[0]);
+            commentsArray.splice(previousPosition,0,comment[0]);
             await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
         } else if (comment[0].likes.includes(userWhoWantsToLikeit.username) && userWhoWantsToLikeit != null) {
             comment[0].likes.splice(comment[0].likes.indexOf(username));
+            let previousPosition = commentsArray.indexOf(comment[0]);
             commentsArray.splice(commentsArray.indexOf(comment[0]),1);
-            commentsArray.push(comment[0]);
+            commentsArray.splice(previousPosition,0,comment[0]);
             await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
         }
     res.redirect('back');

@@ -86,13 +86,33 @@ block content
         document.getElementById("booktitle").value = bookSelected.bookName;
         divInfo.innerHTML = "";
         const para1 = document.createElement("p");
-        //- const textNode = document.createTextNode(JSON.stringify(bookSelected));
-        const textNode1 = document.createTextNode("Autor: " + bookSelected.author[0].completeName);
+
+        let authors = "";
+        bookSelected.author.forEach(function(entry) {
+          authors = authors + " " + entry.completeName;
+        });
+
+        const textNode1 = document.createTextNode("Autor: " + authors);
+
+        let genres = "";
+        bookSelected.genre.forEach(function(entry) {
+          genres = genres + " " + entry.name;
+        });
+
         const para2 = document.createElement("p");
-        const textNode2 = document.createTextNode("Genero: " + bookSelected.genre[0].name);
+        const textNode2 = document.createTextNode("Genero: " + genres);
+        const para3 = document.createElement("p");
+        const textNode3 = document.createTextNode("Titulo: " + bookSelected.bookName);
+
         para1.appendChild(textNode1);
         para2.appendChild(textNode2);
+        para3.appendChild(textNode3);
+
         divInfo.appendChild(para1);
         divInfo.appendChild(para2);
+        divInfo.appendChild(para3);
+
+      } else if (text.length == 0) {
+        document.getElementById("bookInfo").innerHTML = "";
       }
     });
