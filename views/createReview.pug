@@ -72,6 +72,7 @@ block content
       if (text.length > 3 && bookSelected != ""){
         console.log(bookSelected);
         var divInfo = document.getElementById("bookInfo");
+        document.getElementById("booktitle").value = bookSelected.bookName;
         divInfo.innerHTML = "";
         const para1 = document.createElement("p");
         //- const textNode = document.createTextNode(JSON.stringify(bookSelected));
