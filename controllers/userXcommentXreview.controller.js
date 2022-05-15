@@ -74,6 +74,6 @@ exports.likeAComment  = async (req, res, next) => {
             commentsArray.splice(previousPosition,0,comment[0]);
             await UserXcommentXreview.model.updateOne({ _id: req.params.idCommentNode }, { comments:commentsArray });
         }
-    res.redirect('back');
     }
+    res.redirect('back');
 }
