@@ -378,6 +378,7 @@ body {
 .nav__link:hover {
   color: var(--review-color);
   text-decoration: none;
+  cursor: pointer;
 }
 
 
@@ -422,7 +423,7 @@ body {
 /* Editar usuario */
 .block__userEdit {
   width: 60%;
-  height: 600px;
+  height: 520px;
   margin-top: 100px;
   margin-left: 20%;
   justify-content: start;
@@ -476,6 +477,7 @@ body {
 
 .edit__icon:hover {
   color: var(--book-color);
+  cursor: pointer;
 }
 
 .param {
@@ -553,6 +555,10 @@ body {
   padding-right: 20px;
 }
 
+.inputReview__new2:hover {
+  color: var(--background-color);
+}
+
 .book__review {
   background-color: var(--book-color);
   border-radius: 10px 10px 0px 0px;
@@ -571,6 +577,7 @@ body {
 
 .linkReview:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 .review__content {
@@ -628,6 +635,7 @@ body {
 
 .newReview:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 
@@ -696,6 +704,7 @@ body {
 
 .titleToReview:hover {
   color: var(--book-color);
+  cursor: pointer;
 }
 
 .info {
@@ -743,7 +752,7 @@ body {
 .infoBook {
   background-color: var(--book-color);
   border-radius: 10px 10px 0px 0px;
-  height: 130px;
+  height: 210px;
   padding: 5px;
 }
 
@@ -814,6 +823,7 @@ body {
 
 .inputReview__new:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 .createBook {
@@ -833,6 +843,7 @@ body {
 
 .newBook:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 /* New Book */
@@ -871,6 +882,7 @@ body {
 
 .inputBook__new:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 .cta__create {
@@ -914,6 +926,7 @@ body {
 
 .inputAuthor__new:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 
@@ -989,8 +1002,19 @@ body {
   color: var(--header-color);
 }
 
+.hoverLike {
+  text-decoration: none;
+  color: var(--header-color);
+}
+
+.hoverLike:hover {
+  color: var(--book-color);
+  cursor: pointer;
+}
+
 .starFav:hover {
   color: var(--review-color);
+  cursor: pointer;
 }
 
 .starFav2 {
@@ -1026,6 +1050,7 @@ body {
 
 .icon__book:hover {
   color: var(--background-color);
+  cursor: pointer;
 }
 
 /* View book */
@@ -1040,7 +1065,7 @@ body {
 
 .bookContent {
   display: grid;
-  grid-template-columns: repeat(4, 30% 30% 30% 10%);
+  grid-template-columns: repeat(5, 25% 25% 25% 13% 12%);
   margin-bottom: 15px;
   margin-right: 20px;
 }
@@ -1062,6 +1087,24 @@ body {
 }
 
 .bookUser:hover {
+  color: var(--book-color);
+  cursor: pointer;
+}
+
+.reviewToBook {
+  color: var(--header-color);
+}
+
+.reviewToBook:hover {
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+.reviewToUser {
+  color: var(--header-color);
+}
+
+.reviewToUser:hover {
   color: var(--book-color);
   cursor: pointer;
 }
