@@ -33,23 +33,23 @@ router.use(session({
   cookie: { secure: false }
 }));
 
-//Home
+//Load Home
 router.get('/', reviewController.list);
 router.get('/', genreController.list);
 router.get('/',function(req,res){
   res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList, listOfGenres: req.allGenreList})
 });
 
-router.get('/genre', function(req, res) {
-  res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList, listOfGenres: req.allGenreList})
-})
+// router.get('/genre', function(req, res) {
+//   res.render('home.pug', {username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email, listOfReviews: req.allReviewList, listOfGenres: req.allGenreList})
+// });
 
 //Register
 router.get('/user/signup',function(req,res){
   res.render('register.pug', {errors0: req.session.errors0, errors1: req.session.errors1, errors2: req.session.errors2, errors3: req.session.errors3, errors4: req.session.errors4, username: req.session.username, completeName: req.session.completeName, birthDate: req.session.birthDate, email: req.session.email})
 });
 
-//book
+//book add one
 router.get('/book/add',genreController.get);
 router.get('/book/add',authorController.get);
 router.get('/book/add',genreController.list);
@@ -59,18 +59,19 @@ router.get('/book/add',function(req,res){
 router.post('/book/add/save',bookController.save);
 
 //AQUESTA NO S'UTILITZA
-router.get('/book/list/all',bookController.list);
-router.get('/book/list/alll', function(req,res){
-  res.render('listOfBooks.pug', {listOfBooks: req.allBooksList});
-});
+// router.get('/book/list/all',bookController.list);
+// router.get('/book/list/alll', function(req,res){
+//   res.render('listOfBooks.pug', {listOfBooks: req.allBooksList});
+// });
 
+//one book page
 router.get('/book/:idBook',bookController.aBook);
 router.get('/book/:idBook',reviewController.listMadeOfBook);
 router.get('/book/:idBook',genreController.list);
 router.get('/book/:idBook', function(req,res){
   res.render('bookPage.pug', {username: req.session.username, theBook: req.booksFound, theReviews: req.allReviewList, listOfGenres: req.allGenreList});
 });
-
+//create review title filler
 router.post('/book/list/query',bookController.filterList);
 router.post('/book/list/queryByTitle',bookController.bookTitle);
 
@@ -133,23 +134,28 @@ router.get('/user/edit',function(req,res){
 
 //User
 //user page (comments remain to be done)
-router.get('/user/:username',reviewController.listMadeByUser);
-router.get('/user/:username',genreController.list);
-router.get('/user/:username',userXcommentXreview.getAllUserComments);
-router.get('/user/:username', function(req, res) {
-  let username = req.params.username;
-  User.model.findOne({ username: username }, function(err, userBD) {
-    if (err) {
-      return res.json({
-        succes: false,
-        msj: 'No se ha encontrado ningún usuario',
-        err
-      });
-    } else {
-      res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture, listOfGenres:req.allGenreList})
-    }
-  })
-});
+try {
+  router.get('/user/:username',reviewController.listMadeByUser);
+  router.get('/user/:username',genreController.list);
+  router.get('/user/:username',userXcommentXreview.getAllUserComments);
+  router.get('/user/:username', function(req, res) {
+    let username = req.params.username;
+    User.model.findOne({ username: username }, function(err, userBD) {
+      if (err) {
+        return res.json({
+          succes: false,
+          msj: 'No se ha encontrado ningún usuario',
+          err
+        });
+      } else {
+        res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture, listOfGenres:req.allGenreList})
+      }
+    })
+  });
+
+} catch (error) {
+  res.redirect("/");
+}
 
 
 router.post('/user/edit/params', UserController.edit);
