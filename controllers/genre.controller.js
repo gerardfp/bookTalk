@@ -9,7 +9,7 @@ exports.save = async (req, res, next) => {
     } else {
         console.log("genre already in the database");
     }
-    res.redirect("/");
+    res.redirect("/book/add");
 }
 
 exports.get = (req, res, next) => {

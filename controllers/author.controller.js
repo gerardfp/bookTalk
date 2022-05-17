@@ -10,7 +10,7 @@ exports.save = async (req, res, next) => {
     } else {
         console.log("author already in the database");
     }
-    res.redirect("/");
+    res.redirect("/book/add");
 }
 
 exports.get = (req, res, next) => {
