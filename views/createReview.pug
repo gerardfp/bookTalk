@@ -9,7 +9,7 @@ block content
           div.infoBook
             div.bookTitle
               label(for="authorName") Titulo del libro:
-              input(type="text" id="booktitle" name="booktitle" list="bookSearch").inputReview
+              input(type="text" id="booktitle" name="booktitle" list="bookSearch" required).inputReview
             div(id="createBook" hidden).createBook 
               a(href="/book/add")
                 input(type="button" value="Crear Libro").newBook
@@ -20,13 +20,13 @@ block content
           div.infoReview
             div.title__review
               label(for="wikipedialink") Titulo Review:
-              input(type="text", name="reviewTitle").inputReview
+              input(type="text" name="reviewTitle" required).inputReview
             div.score__review
               label(for="wikipedialink") Score:
-              input(type="text", name="score").inputReview
+              input(type="text" name="score" required).inputReview
             div.review__review
               label(for="wikipedialink") Review:
-              textArea(name="review").inputReview__textarea
+              textArea(name="review" required).inputReview__textarea
             div.review__button
               input(type="submit", value="Enviar").inputReview__new
     div.right
