@@ -18,16 +18,16 @@ block content
         div.new__book
           div.nameBook
             label(for="bookName") Titulo:
-            input(type="text", name="bookName").inputReview
+            input(type="text", name="bookName" required).inputReview
           div.author
             label(for="bookName") Nombre del Autor:
-            select(name="authors[]" multiple id="languageSelect")
+            select(name="authors[]" multiple id="languageSelect" required)
             div.cta__create
               a(href="/author/add")
                 input(type="button" value="Crear Autor").newBook
           div.genre
             label(for="genreName") Genero:
-            select(name="genres[]" multiple id="genreSelect")
+            select(name="genres[]" multiple id="genreSelect" required)
             div.cta__create
               a(href="/genre/add")
                 input(type="button" value="Crear Genero").newBook

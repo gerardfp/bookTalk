@@ -7,11 +7,11 @@ block content
           div.nameBook
             label(for="authorName") Nombre del genero:
             br
-            input(type="text", name="genreName").inputReview
+            input(type="text", name="genreName" required).inputReview
           div.review__review
             label(for="wikipedialink") Description:
             br
-            textarea(name="description", rows="4", cols="50").inputReview__textarea
+            textarea(name="description", rows="4", cols="50" required).inputReview__textarea
           div.cta__sendGenre
             input(type="submit", value="Enviar").inputBook__new
     div.right
