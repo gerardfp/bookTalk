@@ -22,7 +22,7 @@ app.use('/public', express.static(Path.join(__dirname, '/public/profilePictures'
 
 app.use('/', index);
 
-app.listen(3000, function () {
+app.listen(process.env.PORT, function () {
   console.log('Example app listening on port 3000!');
 });
 
