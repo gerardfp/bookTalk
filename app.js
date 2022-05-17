@@ -26,8 +26,9 @@ app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
+// `mongodb://root:pass12345@localhost:27017/bookTalk?authSource=admin`
 mongoose.connect(
-  `mongodb://root:pass12345@localhost:27017/bookTalk?authSource=admin`,
+  process.env.MONGO_URL,
   { useUnifiedTopology: true, useNewUrlParser: true },
   (err, res) => {
     if (err) console.log(`ERROR: connecting to Database.  ${err}`);
