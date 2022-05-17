@@ -33,6 +33,10 @@ router.use(session({
   cookie: { secure: false }
 }));
 
+router.get('/user/logout', function (req,res) {
+  req.session.destroy();
+  res.redirect("/");
+});
 //Load Home
 router.get('/', reviewController.list);
 router.get('/', genreController.list);

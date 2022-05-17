@@ -222,4 +222,10 @@ var getUsernameForComments = async (req, res, next) => {
     return;
 }
 
-module.exports = {register, login, edit, searchUsersForSearcher, getUsernameForComments};
+var logout = (req, res, next) => {
+    console.log("AAAAAAAAAAAAAAAa");
+    req.session.destroy();
+    res.redirect('/');
+}
+
+module.exports = {register, login, edit, searchUsersForSearcher, getUsernameForComments, logout};
