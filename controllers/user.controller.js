@@ -132,77 +132,79 @@ var login = (req, res, next) => {
 };
 
 var edit = (req, res, next) => { 
-    var param = req.body.tipoDatos;
-    if (param == "username") {
-        if (req.body.username != "") {
-            var sess = req.session;
-            User.model.findOneAndUpdate({username: sess.username}, {username: req.body.username}, function(err, user) {
-                user.save();
-            });
-            sess.username = req.body.username;
-            res.redirect('/user/edit');
-        } else {
-            res.redirect('/user/edit');
-        }
-    } else if (param == "completeName") {
-        if (req.body.completeName != "") {
-            var sess = req.session;
-            User.model.findOneAndUpdate({completeName: sess.completeName}, {completeName: req.body.completeName}, function(err, user) {
-                user.save();
-            });
-            sess.completeName = req.body.completeName;
-            res.redirect('/user/edit');
-        } else {
-            res.redirect('/user/edit');
-        }
-    } else if (param == "birthDate") {
-        if (req.body.birthDate != "") {
-            var sess = req.session;
-            var d = req.body.birthDate.split('-');
-            var data = new Date(d[0], d[1] - 1, d[2]);
-            console.log(data);
-            
-            var year = d[0];
-            var month = d[1];
-            var day = d[2];
-            User.model.findOneAndUpdate({username: sess.username}, {birthDate: req.body.birthDate}, function(err, user) {
-                console.log(user);
-                var dataAct = new Date;
-                var OldDate = new Date(year, month, day);
-                if (dataAct.getTime() > OldDate.getTime()) {
+    if (sess.username != undefined) {
+        var param = req.body.tipoDatos;
+        if (param == "username") {
+            if (req.body.username != "") {
+                var sess = req.session;
+                User.model.findOneAndUpdate({username: sess.username}, {username: req.body.username}, function(err, user) {
                     user.save();
-                }
-            });
-            sess.birthDate = year + "-" + day + "-" + month;
-            res.redirect('/user/edit');
-        } else {
-            res.redirect('/user/edit');
+                });
+                sess.username = req.body.username;
+                res.redirect('/user/edit');
+            } else {
+                res.redirect('/user/edit');
+            }
+        } else if (param == "completeName") {
+            if (req.body.completeName != "") {
+                var sess = req.session;
+                User.model.findOneAndUpdate({completeName: sess.completeName}, {completeName: req.body.completeName}, function(err, user) {
+                    user.save();
+                });
+                sess.completeName = req.body.completeName;
+                res.redirect('/user/edit');
+            } else {
+                res.redirect('/user/edit');
+            }
+        } else if (param == "birthDate") {
+            if (req.body.birthDate != "") {
+                var sess = req.session;
+                var d = req.body.birthDate.split('-');
+                var data = new Date(d[0], d[1] - 1, d[2]);
+                console.log(data);
+                
+                var year = d[0];
+                var month = d[1];
+                var day = d[2];
+                User.model.findOneAndUpdate({username: sess.username}, {birthDate: req.body.birthDate}, function(err, user) {
+                    console.log(user);
+                    var dataAct = new Date;
+                    var OldDate = new Date(year, month, day);
+                    if (dataAct.getTime() > OldDate.getTime()) {
+                        user.save();
+                    }
+                });
+                sess.birthDate = year + "-" + day + "-" + month;
+                res.redirect('/user/edit');
+            } else {
+                res.redirect('/user/edit');
+            }
+        } else if (param == "email") {
+            if (req.body.email != "") {
+                var sess = req.session;
+                User.model.findOneAndUpdate({username: sess.username, email: sess.email}, {email: req.body.email}, function(err, user) {
+                    user.save();
+                });
+                sess.email = req.body.email;
+                res.redirect('/user/edit');
+            } else {
+                res.redirect('/user/edit');
+            }
+        } else if (param == "biography") {
+            if (req.body.biography != "") {
+                var sess = req.session;
+                User.model.findOneAndUpdate({username: sess.username}, {biography: req.body.biography}, function(err, user) {
+                    user.save();
+                });
+                sess.biography = req.body.biography;
+                res.redirect('/user/edit');
+            } else {
+                res.redirect('/user/edit');
+            }
         }
-    } else if (param == "email") {
-        if (req.body.email != "") {
-            var sess = req.session;
-            User.model.findOneAndUpdate({username: sess.username, email: sess.email}, {email: req.body.email}, function(err, user) {
-                user.save();
-            });
-            sess.email = req.body.email;
-            res.redirect('/user/edit');
-        } else {
-            res.redirect('/user/edit');
-        }
-    } else if (param == "biography") {
-        if (req.body.biography != "") {
-            var sess = req.session;
-            User.model.findOneAndUpdate({username: sess.username}, {biography: req.body.biography}, function(err, user) {
-                user.save();
-            });
-            sess.biography = req.body.biography;
-            res.redirect('/user/edit');
-        } else {
-            res.redirect('/user/edit');
-        }
+    } else {
+        res.redirect('/');
     }
-    
-    
 };
 
 var searchUsersForSearcher = async (req, res, next) => {

@@ -77,7 +77,11 @@ exports.searchBooksForGenre = async (req, res, next) => {
 }
 
 exports.aBook = async (req, res, next) => {
-    let booksFound = await Book.findOne({_id:req.params.idBook });
-    req.booksFound = booksFound;
+    try {
+        let booksFound = await Book.findOne({_id:req.params.idBook });
+        req.booksFound = booksFound;   
+    } catch (error) {
+        res.redirect('/');
+    }
     next();
 }

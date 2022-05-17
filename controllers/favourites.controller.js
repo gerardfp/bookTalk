@@ -1,6 +1,6 @@
 var Book = require('../models/book.model.js');
 var User = require('../models/user.model.js');
-var Favourites = require('../models/favorites.model.js');
+var Favourites = require('../models/favourites.model.js');
 
 //la id del book ve per la ruta, el username per session
 exports.addFavouriteOrRemove = async (req, res, next) => {

@@ -25,11 +25,15 @@ exports.save = async (req, res, next) => {
 
 exports.listMadeByUser = async (req, res, next) => {
     let reviewsMadeByUser = await Review.model.find({ username: req.params.username });
-    console.log(req.params.username);
-    console.log(reviewsMadeByUser);
-    //res.json(reviewsMadeByUser);
-    req.reviewsMadeByUser = reviewsMadeByUser;
-    next();
+    if (reviewsMadeByUser != undefined ) {
+        console.log(req.params.username);
+        console.log(reviewsMadeByUser);
+        //res.json(reviewsMadeByUser);
+        req.reviewsMadeByUser = reviewsMadeByUser;
+        next();
+    } else {
+        res.redirect("/");
+    }
 }
 
 exports.list = async (req, res, next) => {
@@ -45,11 +49,20 @@ exports.listMadeOfBook = async (req, res, next) => {
 }
 
 exports.oneReview = async (req, res, next) => {
-    req.theReview = await Review.model.findOne({_id:req.params.idReview});
-    req.theBook = await Book.findOne({ _id: req.theReview.bookId });
-    console.log(req.theReview);
-    console.log(req.theBook);
-    next();
+    try {
+        let theReview = await Review.model.findOne({_id:req.params.idReview});
+        if (theReview != undefined) {
+            req.theReview = theReview;
+            req.theBook = await Book.findOne({ _id: req.theReview.bookId });
+            console.log(req.theReview);
+            console.log(req.theBook);
+            next();
+        } else {
+            res.redirect('/');
+        }
+    } catch (error) {
+        res.redirect('/');
+    }
 }
 
 exports.searchReviewsForSearcher = async (req, res, next) => {

@@ -107,7 +107,11 @@ router.get('/review/:idReview', reviewController.oneReview);
 router.get('/review/:idReview',userXcommentXreview.getAllReviewComments);
 router.get('/review/:idReview',genreController.list);
 router.get('/review/:idReview', function(req,res){
-  res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview,listOfGenres: req.allGenreList});
+  if (req.theReview != undefined) {
+    res.render('reviewPage.pug', {username: req.session.username, theReview: req.theReview, theBook: req.theBook, comments: req.commentsinReview,listOfGenres: req.allGenreList});
+  } else {
+    res.redirect('/');
+  }
 });
 
 //comment part
@@ -148,7 +152,11 @@ try {
           err
         });
       } else {
-        res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture, listOfGenres:req.allGenreList})
+        if (userBD != undefined) {
+          res.render('user.pug', {username: req.session.username, reviewsMadeByUser: req.reviewsMadeByUser, commentsMadeByUser: req.commentsMadeByUser, username2: userBD.username, biography2: userBD.biography, profilePicture2: userBD.profilePicture, listOfGenres:req.allGenreList});
+        } else {
+          res.redirect("/");
+        }
       }
     })
   });
@@ -229,12 +237,12 @@ router.get('/byGenres/result', function(req,res){
 
 
 //Favoritos
-router.get('/favorites', favouritesController.getFavouritesByUser);
-router.get('/favorites', genreController.list);
-router.get('/favorites', function(req,res){
+router.get('/favourites', favouritesController.getFavouritesByUser);
+router.get('/favourites', genreController.list);
+router.get('/favourites', function(req,res){
   res.render('favoritos.pug', {username: req.session.username, listOfGenres: req.allGenreList, listFavouritesOfUser: req.listFavouritesOfUser});
 });
 
-router.get('/favorites/add/:idBook', favouritesController.addFavouriteOrRemove);
+router.get('/favourites/add/:idBook', favouritesController.addFavouriteOrRemove);
 
 module.exports = router;
