@@ -102,10 +102,10 @@ router.get('/review/add',function(req,res){
   res.render('createReview.pug', {username: req.session.username, listOfGenres: req.allGenreList});
 });
 router.post('/review/add/save',reviewController.save);
-router.get('/review/list', reviewController.list);
-router.get('/review/list', function(req,res){
-  res.render('listOfReviews.pug', {username: req.session.username, listOfReviews: req.allReviewList});
-});
+// router.get('/review/list', reviewController.list);
+// router.get('/review/list', function(req,res){
+//   res.render('listOfReviews.pug', {username: req.session.username, listOfReviews: req.allReviewList});
+// });
 //one review passar la review de la bd i el llibre
 router.get('/review/:idReview', reviewController.oneReview);
 router.get('/review/:idReview',userXcommentXreview.getAllReviewComments);
