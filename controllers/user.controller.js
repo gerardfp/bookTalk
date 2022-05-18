@@ -132,7 +132,7 @@ var login = (req, res, next) => {
 };
 
 var edit = (req, res, next) => { 
-    if (sess.username != undefined) {
+    if (req.session.username != undefined) {
         var param = req.body.tipoDatos;
         if (param == "username") {
             if (req.body.username != "") {

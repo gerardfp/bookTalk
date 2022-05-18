@@ -31,7 +31,7 @@ app.listen(3000, function () {
 // });
 
 mongoose.connect(
-  process.env.MONGO_URL,
+  //process.env.MONGO_URL,
   `mongodb://root:pass12345@localhost:27017/bookTalk?authSource=admin`,
   { useUnifiedTopology: true, useNewUrlParser: true },
   (err, res) => {
