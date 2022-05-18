@@ -22,17 +22,17 @@ app.use('/public', express.static(Path.join(__dirname, '/public/profilePictures'
 
 app.use('/', index);
 
-
-app.listen(3000, function () {
-  console.log(`Example app listening on port ${process.env.PORT}!`);
-});
-// app.listen(process.env.PORT, function () {
+//First option is for runing at home, second one is used in a deployment
+// app.listen(3000, function () {
 //   console.log(`Example app listening on port ${process.env.PORT}!`);
 // });
+app.listen(process.env.PORT, function () {
+  console.log(`Example app listening on port ${process.env.PORT}!`);
+});
 
 mongoose.connect(
-  //process.env.MONGO_URL,
-  `mongodb://root:pass12345@localhost:27017/bookTalk?authSource=admin`,
+  process.env.MONGO_URL,
+  //`mongodb://root:pass12345@localhost:27017/bookTalk?authSource=admin`,
   { useUnifiedTopology: true, useNewUrlParser: true },
   (err, res) => {
     if (err) console.log(`ERROR: connecting to Database.  ${err}`);
